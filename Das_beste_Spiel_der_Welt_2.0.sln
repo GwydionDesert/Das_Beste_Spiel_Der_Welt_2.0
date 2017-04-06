@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Das_beste_Spiel_der_Welt_2.0.Plugins", "Das_beste_Spiel_der_Welt_2.0.Plugins.csproj", "{93F042E9-89AA-3E0C-CF9C-6A08749F83AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Das_Beste_Spiel_Der_Welt_2.0.Plugins", "Das_Beste_Spiel_Der_Welt_2.0.Plugins.csproj", "{45F67875-FDEC-58A7-9AA8-993317344CA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Das_beste_Spiel_der_Welt_2.0", "Das_beste_Spiel_der_Welt_2.0.csproj", "{2EC27A1B-7D02-1B80-3773-84079BC9457A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Das_Beste_Spiel_Der_Welt_2.0", "Das_Beste_Spiel_Der_Welt_2.0.csproj", "{F445F36C-6686-4784-137F-A4FDA9456231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Das_beste_Spiel_der_Welt_2.0.Editor.Plugins", "Das_beste_Spiel_der_Welt_2.0.Editor.Plugins.csproj", "{D7C411AC-6154-E575-609A-8AA316BF3BF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Das_Beste_Spiel_Der_Welt_2.0.Editor.Plugins", "Das_Beste_Spiel_Der_Welt_2.0.Editor.Plugins.csproj", "{7DFAA53C-4E41-72B0-9E43-B816B21D0EEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,18 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{93F042E9-89AA-3E0C-CF9C-6A08749F83AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93F042E9-89AA-3E0C-CF9C-6A08749F83AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93F042E9-89AA-3E0C-CF9C-6A08749F83AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93F042E9-89AA-3E0C-CF9C-6A08749F83AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2EC27A1B-7D02-1B80-3773-84079BC9457A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2EC27A1B-7D02-1B80-3773-84079BC9457A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2EC27A1B-7D02-1B80-3773-84079BC9457A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2EC27A1B-7D02-1B80-3773-84079BC9457A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7C411AC-6154-E575-609A-8AA316BF3BF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7C411AC-6154-E575-609A-8AA316BF3BF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7C411AC-6154-E575-609A-8AA316BF3BF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7C411AC-6154-E575-609A-8AA316BF3BF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F67875-FDEC-58A7-9AA8-993317344CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F67875-FDEC-58A7-9AA8-993317344CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F67875-FDEC-58A7-9AA8-993317344CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F67875-FDEC-58A7-9AA8-993317344CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F445F36C-6686-4784-137F-A4FDA9456231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F445F36C-6686-4784-137F-A4FDA9456231}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F445F36C-6686-4784-137F-A4FDA9456231}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F445F36C-6686-4784-137F-A4FDA9456231}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DFAA53C-4E41-72B0-9E43-B816B21D0EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DFAA53C-4E41-72B0-9E43-B816B21D0EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DFAA53C-4E41-72B0-9E43-B816B21D0EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DFAA53C-4E41-72B0-9E43-B816B21D0EEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

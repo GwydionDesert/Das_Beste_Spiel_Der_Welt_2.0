@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D7C411AC-6154-E575-609A-8AA316BF3BF9}</ProjectGuid>
+    <ProjectGuid>{7DFAA53C-4E41-72B0-9E43-B816B21D0EEC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -117,13 +117,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Das_beste_Spiel_der_Welt_2.0.Plugins.csproj">
-      <Project>{93F042E9-89AA-3E0C-CF9C-6A08749F83AF}</Project>
-      <Name>Das_beste_Spiel_der_Welt_2.0.Plugins</Name>
+    <ProjectReference Include="Das_Beste_Spiel_Der_Welt_2.0.Plugins.csproj">
+      <Project>{45F67875-FDEC-58A7-9AA8-993317344CA6}</Project>
+      <Name>Das_Beste_Spiel_Der_Welt_2.0.Plugins</Name>
     </ProjectReference>
-    <ProjectReference Include="Das_beste_Spiel_der_Welt_2.0.csproj">
-      <Project>{2EC27A1B-7D02-1B80-3773-84079BC9457A}</Project>
-      <Name>Das_beste_Spiel_der_Welt_2.0</Name>
+    <ProjectReference Include="Das_Beste_Spiel_Der_Welt_2.0.csproj">
+      <Project>{F445F36C-6686-4784-137F-A4FDA9456231}</Project>
+      <Name>Das_Beste_Spiel_Der_Welt_2.0</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2EC27A1B-7D02-1B80-3773-84079BC9457A}</ProjectGuid>
+    <ProjectGuid>{F445F36C-6686-4784-137F-A4FDA9456231}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -78,9 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Das_beste_Spiel_der_Welt_2.0.Plugins.csproj">
-      <Project>{93F042E9-89AA-3E0C-CF9C-6A08749F83AF}</Project>
-      <Name>Das_beste_Spiel_der_Welt_2.0.Plugins</Name>
+    <ProjectReference Include="Das_Beste_Spiel_Der_Welt_2.0.Plugins.csproj">
+      <Project>{45F67875-FDEC-58A7-9AA8-993317344CA6}</Project>
+      <Name>Das_Beste_Spiel_Der_Welt_2.0.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
