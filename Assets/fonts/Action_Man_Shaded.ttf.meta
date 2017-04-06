@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 950845680366c164cb5146d2264f08b5
+timeCreated: 1491487274
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Action Man Shaded
+  fontNames:
+  - Action Man Shaded
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0a355e2b3974f9b43830e6c251c929d3, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

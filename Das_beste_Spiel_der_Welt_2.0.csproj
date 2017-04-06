@@ -78,43 +78,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Das_Beste_Spiel_Der_Welt_2.0.Plugins.csproj">
-      <Project>{45F67875-FDEC-58A7-9AA8-993317344CA6}</Project>
-      <Name>Das_Beste_Spiel_Der_Welt_2.0.Plugins</Name>
-    </ProjectReference>
+    <Compile Include="Assets\scripts\DisplayText.cs" />
+    <Compile Include="Assets\scripts\GM.cs" />
+    <Compile Include="Assets\scripts\onClick.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\onClick.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-    <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\AmbientOcclusion.cginc" />
-    <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\AmbientOcclusion.shader" />
-    <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\Common.cginc" />
-    <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\Composition.cginc" />
-    <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\SeparableBlur.cginc" />
-    <None Include="Assets\Standard Assets\Effects\AntiAliasing\FXAA\Resources\FXAA.shader" />
-    <None Include="Assets\Standard Assets\Effects\AntiAliasing\FXAA\Resources\FXAA3.cginc" />
-    <None Include="Assets\Standard Assets\Effects\AntiAliasing\SMAA\Resources\SMAA.cginc" />
-    <None Include="Assets\Standard Assets\Effects\AntiAliasing\SMAA\Resources\SMAA.shader" />
-    <None Include="Assets\Standard Assets\Effects\Bloom\Resources\Bloom.cginc" />
-    <None Include="Assets\Standard Assets\Effects\Bloom\Resources\Bloom.shader" />
-    <None Include="Assets\Standard Assets\Effects\DepthOfField\Resources\BokehSplatting.shader" />
-    <None Include="Assets\Standard Assets\Effects\DepthOfField\Resources\DepthOfField.shader" />
-    <None Include="Assets\Standard Assets\Effects\DepthOfField\Resources\MedianFilter.shader" />
-    <None Include="Assets\Standard Assets\Effects\LensAberrations\Resources\LensAberrations.shader" />
-    <None Include="Assets\Standard Assets\Effects\MotionBlur\Resources\Common.cginc" />
-    <None Include="Assets\Standard Assets\Effects\MotionBlur\Resources\FrameBlending.shader" />
-    <None Include="Assets\Standard Assets\Effects\MotionBlur\Resources\Prefilter.cginc" />
-    <None Include="Assets\Standard Assets\Effects\MotionBlur\Resources\Reconstruction.cginc" />
-    <None Include="Assets\Standard Assets\Effects\MotionBlur\Resources\Reconstruction.shader" />
-    <None Include="Assets\Standard Assets\Effects\ScreenSpaceReflection\Resources\ScreenSpaceRaytrace.cginc" />
-    <None Include="Assets\Standard Assets\Effects\ScreenSpaceReflection\Resources\ScreenSpaceReflection.shader" />
-    <None Include="Assets\Standard Assets\Effects\TonemappingColorGrading\Resources\HistogramCompute.compute" />
-    <None Include="Assets\Standard Assets\Effects\TonemappingColorGrading\Resources\HistogramRender.shader" />
-    <None Include="Assets\Standard Assets\Effects\TonemappingColorGrading\Resources\TonemappingColorGrading.cginc" />
-    <None Include="Assets\Standard Assets\Effects\TonemappingColorGrading\Resources\TonemappingColorGrading.shader" />
-    <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
+    <None Include="Assets\fonts\Iconian Fonts License.txt" />
+    <None Include="Assets\fonts\change_color.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
