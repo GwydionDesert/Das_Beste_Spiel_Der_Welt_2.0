@@ -1,14 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class onClick : MonoBehaviour {
 
-    public GameObject text;
-
     private GameObject lastHit;
-    private DisplayText displayScript;
-    
+    private Texture2D cursorActive;
+    private Texture2D cursorInactive;
+
+    private void Start()
+    {
+        /*// set texture for active cursor
+        Sprite sprite = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorActive;
+        cursorActive = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
+        Color[] tmp = sprite.texture.GetPixels((int)sprite.textureRect.x,
+                                               (int)sprite.textureRect.y,
+                                               (int)sprite.textureRect.width,
+                                               (int)sprite.textureRect.height);
+        cursorActive.SetPixels(tmp);
+
+        // set texture for inactive cursor
+        sprite = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorInactive;
+        cursorInactive = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
+        tmp = sprite.texture.GetPixels((int)sprite.textureRect.x,
+                                       (int)sprite.textureRect.y,
+                                       (int)sprite.textureRect.width,
+                                       (int)sprite.textureRect.height);
+        cursorInactive.SetPixels(tmp);*/
+
+        cursorActive = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorActive;
+        cursorInactive = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorInactive;
+    }
+
     void Update () {
         {
             // get mouse position to world space
@@ -23,38 +44,35 @@ public class onClick : MonoBehaviour {
                 return;
             }
 
-            // check if object has a sprite renderer
-            // mostly only called because of else block
-            try
+            // on mouse over
+            if (hit)
             {
-                // on mouse over
-                if (hit)
+                // change cursor icon
+                Cursor.SetCursor(cursorActive, Vector2.zero, CursorMode.Auto);
+
+                lastHit = hit.transform.gameObject;
+
+                if (Input.GetButtonDown("Fire1"))
                 {
-                    // on mouse over highlight object
-                    lastHit = hit.transform.gameObject;
-                    lastHit.GetComponent<SpriteRenderer>().color = Color.red;
 
-                    if (Input.GetButtonDown("Fire1"))
+                    // show object description
+                    // enter Interaction Mode
+                    if (Cursor.visible && hit.transform.GetComponent<DisplayText>() != null)
                     {
+                        hit.transform.gameObject.GetComponent<DisplayText>().display();
+                        Cursor.visible = false;
+                    }
 
-                        // show object description
-                        // start interaction mode
-                        if (Cursor.visible)
-                        {
-                            hit.transform.gameObject.GetComponent<DisplayText>().display();
-                            Cursor.visible = false;
-                        }
+                    if (hit.transform.GetComponent<ChangeScene>() != null)
+                    {
+                        hit.transform.gameObject.GetComponent<ChangeScene>().changeScene();
                     }
                 }
-                else
-                {
-                    // reset highlighting
-                    lastHit.GetComponent<SpriteRenderer>().color = Color.white;
-                }
             }
-            catch
+            else
             {
-                Debug.Log("no SpriteRenderer found");
+                // reset cursor
+                Cursor.SetCursor(cursorInactive, Vector2.zero, CursorMode.Auto);
             }
         }
     }
