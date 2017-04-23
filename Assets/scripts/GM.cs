@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class GM : MonoBehaviour {
 
@@ -8,6 +10,9 @@ public class GM : MonoBehaviour {
     private void Awake()
     {
         keepObject();
+        readTable();
+
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     // check if more than one GM is active per scene
@@ -27,11 +32,31 @@ public class GM : MonoBehaviour {
         }
     }
 
+    private void readTable()
+    {
+        // Split text by rows
+        String[] s = objects.text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        for (int i = 0; i < s.Length; i++)
+        {
+            // Dict Key = first word in row
+            String key = s[i].Split('\t')[0];
+            // Dict Value = rest of row, split by Tabs
+            String[] text = s[i].Substring(key.Length + 1).Split('\t');
+            description.Add(key, text);
+        }
+    }
+
+//********************************************************************************************************
+// public variables
+
     public GameObject text;
-    //public Sprite cursorActive;
-    //public Sprite cursorInactive;
     public Texture2D cursorActive;
     public Texture2D cursorInactive;
+
+    // object description
+    [HideInInspector]
+    public Dictionary<string, string[]> description = new Dictionary<string, string[]>();
+    public TextAsset objects;
 
     // space for object states like already interacted with ... or picked up
 }
