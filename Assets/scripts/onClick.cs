@@ -8,24 +8,6 @@ public class onClick : MonoBehaviour {
 
     private void Start()
     {
-        /*// set texture for active cursor
-        Sprite sprite = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorActive;
-        cursorActive = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
-        Color[] tmp = sprite.texture.GetPixels((int)sprite.textureRect.x,
-                                               (int)sprite.textureRect.y,
-                                               (int)sprite.textureRect.width,
-                                               (int)sprite.textureRect.height);
-        cursorActive.SetPixels(tmp);
-
-        // set texture for inactive cursor
-        sprite = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorInactive;
-        cursorInactive = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
-        tmp = sprite.texture.GetPixels((int)sprite.textureRect.x,
-                                       (int)sprite.textureRect.y,
-                                       (int)sprite.textureRect.width,
-                                       (int)sprite.textureRect.height);
-        cursorInactive.SetPixels(tmp);*/
-
         cursorActive = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorActive;
         cursorInactive = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorInactive;
     }
@@ -36,11 +18,11 @@ public class onClick : MonoBehaviour {
             Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
             RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
 
-            // stop interaction mode
+            // stop interaction mode    -   description
             if (Cursor.visible == false && Input.GetButtonDown("Fire1"))
             {
-                lastHit.transform.gameObject.GetComponent<DisplayText>().stop();
-                Cursor.visible = true;
+                lastHit.transform.gameObject.GetComponent<DisplayText>().iText ++;
+                lastHit.transform.gameObject.GetComponent<DisplayText>().display();
                 return;
             }
 
@@ -50,10 +32,9 @@ public class onClick : MonoBehaviour {
                 // change cursor icon
                 Cursor.SetCursor(cursorActive, Vector2.zero, CursorMode.Auto);
 
-                lastHit = hit.transform.gameObject;
-
                 if (Input.GetButtonDown("Fire1"))
                 {
+                    lastHit = hit.transform.gameObject;
 
                     // show object description
                     // enter Interaction Mode

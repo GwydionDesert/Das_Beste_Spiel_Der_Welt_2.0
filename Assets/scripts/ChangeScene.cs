@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using UnityEditor.SceneManagement;
+//using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour {
 
@@ -7,6 +8,6 @@ public class ChangeScene : MonoBehaviour {
 
 	public void changeScene()
     {
-        EditorSceneManager.LoadScene(nextScene, UnityEngine.SceneManagement.LoadSceneMode.Single);
+        SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
 }
