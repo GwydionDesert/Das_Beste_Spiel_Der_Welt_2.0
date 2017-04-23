@@ -78,12 +78,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Game Jam Template\Scripts\DontDestroy.cs" />
+    <Compile Include="Assets\Game Jam Template\Scripts\EventSystemChecker.cs" />
+    <Compile Include="Assets\Game Jam Template\Scripts\Pause.cs" />
+    <Compile Include="Assets\Game Jam Template\Scripts\PlayMusic.cs" />
+    <Compile Include="Assets\Game Jam Template\Scripts\QuitApplication.cs" />
+    <Compile Include="Assets\Game Jam Template\Scripts\SetAudioLevels.cs" />
+    <Compile Include="Assets\Game Jam Template\Scripts\ShowPanels.cs" />
+    <Compile Include="Assets\Game Jam Template\Scripts\StartOptions.cs" />
     <Compile Include="Assets\scripts\ChangeScene.cs" />
     <Compile Include="Assets\scripts\DisplayText.cs" />
     <Compile Include="Assets\scripts\GM.cs" />
     <Compile Include="Assets\scripts\onClick.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Game Jam Template\Fonts\OpenSans\License!.txt" />
+    <None Include="Assets\Game Jam Template\GameJamTemplateReadMe.txt" />
     <None Include="Assets\Resources\objects.txt" />
     <None Include="Assets\fonts\Iconian Fonts License.txt" />
     <None Include="Assets\fonts\change_color.shader" />
