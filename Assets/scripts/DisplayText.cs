@@ -11,7 +11,7 @@ public class DisplayText : MonoBehaviour {
     private GameObject textInstance;
 
     [HideInInspector]
-    public int iText;
+    public int iText;		// ammount of text instances
 
     // get Text prefab from GM
     private void Start()
@@ -19,7 +19,7 @@ public class DisplayText : MonoBehaviour {
         text = GameObject.Find("GM").gameObject.GetComponent<GM>().text;
         if (GameObject.Find("GM").gameObject.GetComponent<GM>().description.ContainsKey(gameObject.name))
         {
-            descriptionText = GameObject.Find("GM").gameObject.GetComponent<GM>().description[this.gameObject.name];
+            descriptionText = GameObject.Find("GM").gameObject.GetComponent<GM>().description[gameObject.name];
         }
         else
         {

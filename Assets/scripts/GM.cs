@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,6 +52,10 @@ public class GM : MonoBehaviour {
     public GameObject text;
     public Texture2D cursorActive;
     public Texture2D cursorInactive;
+
+// options
+    public float music_volume;
+    public float effect_volume;
 
     // object description
     [HideInInspector]
