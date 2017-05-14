@@ -9,6 +9,8 @@ public class Item : MonoBehaviour {
 	//public Type type;
 	public Sprite image;
 
+	public bool isDragged;
+
 	public Item(string name, Sprite image){
 		this.name = name;
 		this.image = image;
@@ -19,8 +21,14 @@ public class Item : MonoBehaviour {
 	}
 
 	void OnMouseExit() { 
-		if (!transform.parent.parent.GetComponent<InventoryController>().canDragItem){
-			transform.parent.parent.GetComponent<InventoryController>().selectedItem = null; 
+		if (isDragged) {
+			if (!transform.parent.GetComponent<InventoryController> ().canDragItem) {
+				transform.parent.GetComponent<InventoryController> ().selectedItem = null; 
+			}
+		} else {
+			if (!transform.parent.parent.GetComponent<InventoryController>().canDragItem){
+				transform.parent.parent.GetComponent<InventoryController>().selectedItem = null; 
+			}
 		}
 	}
 }

@@ -46,6 +46,7 @@ public class InventoryController : MonoBehaviour {
 		// grab Item
 		if (Input.GetMouseButtonDown(0) && selectedItem != null){
 			canDragItem = true;
+			selectedItem.GetComponent<Item> ().isDragged = true;
 			originalSlot = selectedItem.parent;
 			//selectedItem.GetComponent<Collider>().enabled = false;
 			setItemColliders(false);
@@ -54,18 +55,20 @@ public class InventoryController : MonoBehaviour {
 		//  drag Item
 		if (Input.GetMouseButton(0) && selectedItem != null && canDragItem){
 			selectedItem.position = new Vector3 (Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 100f);
+			selectedItem.transform.SetParent(originalSlot.parent);
 		}
 		// let go of Item 			-> 	move to Slot
 		else if(Input.GetMouseButtonUp(0) && selectedItem != null){
 			canDragItem = false;
+			selectedItem.GetComponent<Item> ().isDragged = false;
 			if (selectedSlot == null) {
-				selectedItem.parent = originalSlot;
+				selectedItem.SetParent(originalSlot);
 			}
 			else{
 				if (selectedSlot.childCount > 0){
-					selectedSlot.GetChild(0).parent = originalSlot;
+					selectedSlot.GetChild(0).SetParent(originalSlot);
 				}
-				selectedItem.parent = selectedSlot;
+				selectedItem.SetParent(selectedSlot);
 			}
 			if (originalSlot.childCount > 0){
 				originalSlot.GetChild(0).localPosition = Vector3.zero;
