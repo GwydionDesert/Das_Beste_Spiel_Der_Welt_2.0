@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Pause : MonoBehaviour {
 
@@ -51,6 +53,7 @@ public class Pause : MonoBehaviour {
 		isPaused = true;
 		//Set time.timescale to 0, this will cause animations and physics to stop updating
 		Time.timeScale = 0;
+		setCollider(false);
 		//call the ShowPausePanel function of the ShowPanels script
 		showPanels.ShowPausePanel ();
 	}
@@ -62,17 +65,37 @@ public class Pause : MonoBehaviour {
 		isPaused = false;
 		//Set time.timescale to 1, this will cause animations and physics to continue updating at regular speed
 		Time.timeScale = 1;
+		setCollider(true);
 		//call the HidePausePanel function of the ShowPanels script
 		showPanels.HidePausePanel ();
 	}
 
 	public void ShowInventory(){
 		inInventory = true;
+ 		setCollider(false);
 		showPanels.ShowInventory ();
 	}
 
 	public void HideInventory(){
 		inInventory = false;
+		setCollider(true);
 		showPanels.HideInventory ();
+	}
+
+	private void setCollider(bool state){
+		// get root objects in scene
+		List<GameObject> rootObjects = new List<GameObject>();
+		Scene scene = SceneManager.GetActiveScene();
+		scene.GetRootGameObjects( rootObjects );
+		 
+		// iterate root objects and do something
+		foreach (GameObject g in rootObjects)
+		{
+			if (g.name != "UI" && g.name != "GM"){
+				if (g.GetComponent<Collider2D>()){
+					g.GetComponent<Collider2D>().enabled = state;
+				}
+			}
+		}
 	}
 }

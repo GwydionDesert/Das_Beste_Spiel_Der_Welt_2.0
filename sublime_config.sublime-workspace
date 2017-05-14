@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"WaitFo",
+				"WaitForSeconds\t[class]"
+			],
+			[
+				"temp",
+				"tempRT"
+			],
+			[
+				"tem",
+				"tempRT"
+			],
+			[
+				"RenderText",
+				"RenderTexture\t[class]"
+			],
+			[
+				"attac",
+				"attachedCamera"
+			],
+			[
+				"Tem",
+				"tempCam"
+			],
+			[
+				"Fra",
+				"fragment"
+			],
+			[
+				"Attac",
+				"attachedCamera"
+			],
+			[
 				"vel",
 				"velSSbo"
 			],
@@ -40,37 +72,10 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/scripts/InventoryController.cs",
+			"file": "Assets/TODO.cs",
 			"settings":
 			{
-				"buffer_size": 2685,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/scripts/Item.cs",
-			"settings":
-			{
-				"buffer_size": 634,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/scripts/SlotController.cs",
-			"settings":
-			{
-				"buffer_size": 462,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/scripts/ItemDB.cs",
-			"settings":
-			{
-				"buffer_size": 551,
+				"buffer_size": 181,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Unix"
 			}
@@ -79,7 +84,25 @@
 			"file": "Assets/scripts/onClick.cs",
 			"settings":
 			{
-				"buffer_size": 2365,
+				"buffer_size": 2341,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/scripts/DisplayText.cs",
+			"settings":
+			{
+				"buffer_size": 2515,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Game Jam Template/Scripts/Pause.cs",
+			"settings":
+			{
+				"buffer_size": 2948,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -126,6 +149,38 @@
 	],
 	"file_history":
 	[
+		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/scripts/ItemDB.cs",
+		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/scripts/SlotController.cs",
+		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/scripts/InventoryController.cs",
+		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/scripts/Item.cs",
+		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/Game Jam Template/Scripts/Pause.cs",
+		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/Game Jam Template/Scripts/StartOptions.cs",
+		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/Game Jam Template/Scripts/ShowPanels.cs",
+		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/scripts/GM.cs",
+		"/C/Users/Nutzer/Desktop/GameJam.txt",
+		"/D/Programmieren/GitHub/Shader Test/Assets/Outline/PostEffect.cs",
+		"/D/Programmieren/GitHub/Shader Test/Assets/Outline/DrawSimple.shader",
+		"/D/Programmieren/GitHub/Shader Test/Assets/Outline/PostOutline.shader",
+		"/D/Programmieren/Tools/Editor/Data/CGIncludes/UnityCG.cginc",
+		"/D/Programmieren/GitHub/Shader Test/Assets/Outline/outlineCamera.cs",
+		"/C/Users/Nutzer/Desktop/Testat_Aufgabe_2_Milas_Baumgarten/src/Dateiverarbeitung.java",
+		"/D/Programmieren/GitHub/Shader Test/Assets/Outline/outline.shader",
+		"/D/Programmieren/GitHub/Shader Test/Assets/FlatShading aka LowPoly/flat.shader",
+		"/D/Programmieren/GitHub/Shader Test/Assets/ExtrudeFaces/extrude.shader",
+		"/D/Programmieren/GitHub/Shader Test/Assets/Tutorial Shader/tutorial_shader.shader",
+		"/D/Programmieren/GitHub/Shader Test/Assets/Water Shader/water.shader",
+		"/D/Programmieren/GitHub/Shader Test/Assets/Test Shader/balls.shader",
+		"/D/Downloads/Dateiverarbeitung.java",
+		"/C/Users/Nutzer/Dropbox/DateiAusleser.java",
+		"/D/Programmieren/Projekte/Java/test/src/test/DateiAusleser.java",
+		"/D/Downloads/RechteckTester.java",
+		"/D/Downloads/Rechteck.java",
+		"/C/Users/Nutzer/Dropbox/PunktTester.java",
+		"/C/Users/Nutzer/Dropbox/Punkt.java",
+		"/D/Downloads/StringsSpeichern.java",
+		"/D/Downloads/QuadratzahlenSpeichern.java",
+		"/D/Downloads/NterIntWertInDatei.java",
+		"/D/Downloads/DoublesSpeichern.java",
 		"/D/Programmieren/Projekte/Unity/Compute Shader/Assets/shader.shader",
 		"/D/Programmieren/Projekte/Unity/Compute Shader/Assets/CreatePlane.cs",
 		"/D/Programmieren/Projekte/Unity/Compute Shader/Assets/compute_shader.compute",
@@ -134,7 +189,6 @@
 		"/D/Programmieren/Projekte/Unity/Compute Shader/Assets/Start_Shader.cs",
 		"/D/Programmieren/Projekte/Unity/Compute Shader/Assets/bouncing_particles.compute",
 		"/D/Programmieren/GitHub/alpha03-bakecake/Assets/Scripts/VariableStorage.cs",
-		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/scripts/GM.cs",
 		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/Game Jam Template/Scripts/SetAudioLevels.cs",
 		"/D/Programmieren/GitHub/alpha03-bakecake/Assets/Game Jam Menu Template/Scripts/SetAudioLevels.cs",
 		"/D/Programmieren/GitHub/alpha03-bakecake/Assets/Game Jam Menu Template/Scripts/ControlOptions.cs",
@@ -199,80 +253,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/scripts/InventoryController.cs",
+					"file": "Assets/TODO.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2685,
+						"buffer_size": 181,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2021,
-								2021
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 405.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/scripts/Item.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 634,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								466,
-								466
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/scripts/SlotController.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 462,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								432,
-								432
+								178,
+								178
 							]
 						],
 						"settings":
@@ -287,48 +285,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "Assets/scripts/ItemDB.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 551,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								246,
-								246
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
+					"buffer": 1,
 					"file": "Assets/scripts/onClick.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2365,
+						"buffer_size": 2341,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								559,
-								508
+								1005,
+								1005
 							]
 						],
 						"settings":
@@ -338,10 +308,68 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 486.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/scripts/DisplayText.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2515,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1882,
+								1882
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 864.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Game Jam Template/Scripts/Pause.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2948,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1948,
+								1948
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 810.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

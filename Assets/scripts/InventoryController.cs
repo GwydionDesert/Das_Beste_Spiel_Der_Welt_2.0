@@ -25,7 +25,6 @@ public class InventoryController : MonoBehaviour {
 				slot.GetComponent<RectTransform>().anchoredPosition = new Vector3(windwoSize.x / (inventorySize.x + 1) * x, windwoSize.y / (inventorySize.y + 1)* -y, 0);
 				
 				// add start items
-				Debug.Log(ItemDB.itemList.Count);
 				if (inventorySize.x * (y - 1) + x <= ItemDB.itemList.Count){
 					GameObject item = Instantiate(itemPrefab) as GameObject;
 					item.transform.SetParent(slot.transform, false);

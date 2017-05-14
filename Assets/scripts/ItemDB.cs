@@ -20,9 +20,4 @@ public class ItemDB : MonoBehaviour {
 		itemList.Add(i1);
 		itemList.Add(i2);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

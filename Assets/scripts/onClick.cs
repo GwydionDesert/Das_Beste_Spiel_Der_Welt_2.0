@@ -23,7 +23,6 @@ public class onClick : MonoBehaviour {
             {
                 lastHit.transform.gameObject.GetComponent<DisplayText>().iText ++;
                 lastHit.transform.gameObject.GetComponent<DisplayText>().display();
-                return;
             }
 
             // on mouse over
