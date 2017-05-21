@@ -42,18 +42,25 @@ public class GM : MonoBehaviour {
             String key = s[i].Split('\t')[0];
             // Dict Value = rest of row, split by Tabs
             String[] text = s[i].Substring(key.Length + 1).Split('\t');
+
+			// make escape characters useable (| -> \n)
+			for (int j = 0; j < text.Length; j++) {
+				text [j] = text [j].Replace ("|", "\n");
+			}
+			// add key to dictionary
             description.Add(key, text);
         }
     }
 
 //********************************************************************************************************
-// public variables
+	// public variables
 
     public GameObject text;
+	public GameObject textBackground;
     public Texture2D cursorActive;
     public Texture2D cursorInactive;
 
-// options
+	// options
     public float music_volume;
     public float effect_volume;
 
@@ -61,6 +68,4 @@ public class GM : MonoBehaviour {
     [HideInInspector]
     public Dictionary<string, string[]> description = new Dictionary<string, string[]>();
     public TextAsset objects;
-
-    // space for object states like already interacted with ... or picked up
 }
