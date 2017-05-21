@@ -77,9 +77,12 @@ public class InventoryController : MonoBehaviour {
 		}
 	}
 
-	void setItemColliders(bool state){
+	public void setItemColliders(bool state){
 		foreach(GameObject item in GameObject.FindGameObjectsWithTag("Item")){
-			item.GetComponent<Collider>().enabled = state;
+			item.GetComponent<PolygonCollider2D>().enabled = state;
+		}
+		foreach(GameObject sceneChange in GameObject.FindGameObjectsWithTag("SceneChange")){
+			sceneChange.GetComponent<PolygonCollider2D>().enabled = state;
 		}
 	}
 }

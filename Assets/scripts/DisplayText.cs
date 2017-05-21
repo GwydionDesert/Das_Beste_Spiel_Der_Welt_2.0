@@ -25,6 +25,8 @@ public class DisplayText : MonoBehaviour {
 	private AudioSource primaryAS;
 	private AudioSource secondaryAS;
 
+    private InventoryController ic = new InventoryController();
+
     // get Text prefab from GM
     private void Start()
     {
@@ -50,6 +52,7 @@ public class DisplayText : MonoBehaviour {
     public void display()
     {
         // instantiate Text once
+        ic.setItemColliders(false);
         if (iText == 0)
         {
             UI.GetComponent<StartOptions>().inMainMenu = true;
@@ -58,11 +61,16 @@ public class DisplayText : MonoBehaviour {
                                                              (textInstance.transform.localScale.y / transform.localScale.y) * textScale, 0f);
             textInstance.transform.position += offset;
 
-			textBG = Instantiate (GM.gm.textBackground, new Vector3(textInstance.transform.position.x, textInstance.transform.position.y, -1.0f), GM.gm.textBackground.transform.rotation, transform);
+			//textBG = Instantiate (GM.gm.textBackground, new Vector3(textInstance.transform.position.x, textInstance.transform.position.y, -1.0f), GM.gm.textBackground.transform.rotation, transform);
 
 			textMP = textInstance.GetComponent<TextMeshPro> ();
 
-			primaryAS.PlayOneShot (sound [0], GM.gm.effect_volume);
+			try {
+                //primaryAS.PlayOneShot (sound [0], GM.gm.effect_volume);
+            }
+            catch (Exception e){
+                Debug.Log(e.StackTrace);
+            }
         }
 
         // cycle through texts
@@ -74,18 +82,20 @@ public class DisplayText : MonoBehaviour {
 			Bounds textBounds = textMP.textBounds;
 
 			float marginX = 0.0f;
-			float marginY = 0.0f;
-			Vector3 rectTransformSizeDelta = new Vector3 ((textBounds.size.x + marginX) / 4.2f, 0.1f, (textBounds.size.y + marginY) / 2.0f);
-			textBG.transform.localScale = rectTransformSizeDelta;
+			float marginY = 1.0f;
+			//Vector3 rectTransformSizeDelta = new Vector3 ((textBounds.size.x + marginX) / 4.2f, 0.1f, (textBounds.size.y + marginY) / 3f);
+			//textBG.transform.localScale = rectTransformSizeDelta;
 			//textBG.GetComponent<RectTransform> ().sizeDelta = rectTransformSizeDelta;
 
-			if (iText % 2 == 0) {
-				secondaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
-				StartCoroutine (FadeOut (primaryAS, 0.3f));
-			} else {
-				primaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
-				StartCoroutine (FadeOut (secondaryAS, 0.3f));
-			}
+            if (sound.Length != 0){
+                if (iText % 2 == 0) {
+                    secondaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
+                    StartCoroutine (FadeOut (primaryAS, 0.3f));
+                } else {
+                    primaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
+                    StartCoroutine (FadeOut (secondaryAS, 0.3f));
+                }
+            }
         }
         else
         {
@@ -98,7 +108,9 @@ public class DisplayText : MonoBehaviour {
     {
         iText = 0;
         Destroy(textInstance);
+        //Destroy(textBG);
         UI.GetComponent<StartOptions>().inMainMenu = false;
+        ic.setItemColliders(true);
         StartCoroutine("leaveInteractionMode");
     }
 
