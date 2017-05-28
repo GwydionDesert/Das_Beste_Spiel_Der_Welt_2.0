@@ -6,6 +6,8 @@ public class onClick : MonoBehaviour {
     private Texture2D cursorActive;
     private Texture2D cursorInactive;
 
+    private bool invContFound = false;
+
     private void Start()
     {
         cursorActive = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorActive;

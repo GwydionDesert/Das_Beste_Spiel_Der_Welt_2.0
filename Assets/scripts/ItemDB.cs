@@ -11,10 +11,9 @@ public class ItemDB : MonoBehaviour {
 
 	void Awake () {
 		// add Items
-		Item i0 = new Item("Sword", sprite[0]);
-		//i0.type = Item.Type.equip;
-		Item i1 = new Item("Sword_2", sprite[1]);
-		Item i2 = new Item("HP", sprite[2]);
+		Item i0 = new Item("Candy 01", sprite[0]);
+		Item i1 = new Item("Candy 02", sprite[1]);
+		Item i2 = new Item("Candy 03", sprite[2]);
 
 		itemList.Add(i0);
 		itemList.Add(i1);

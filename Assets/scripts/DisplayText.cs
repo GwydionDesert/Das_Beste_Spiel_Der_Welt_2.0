@@ -25,7 +25,8 @@ public class DisplayText : MonoBehaviour {
 	private AudioSource primaryAS;
 	private AudioSource secondaryAS;
 
-    private InventoryController ic = new InventoryController();
+    //private InventoryController ic = new InventoryController();
+    private InventoryController invCont;
 
     // get Text prefab from GM
     private void Start()
@@ -46,13 +47,24 @@ public class DisplayText : MonoBehaviour {
         {
             Debug.Log("Objektname stimmt mit keinem Key überein!");
         }
+
+        // find InventoryController
+        int i = 0;
+        Transform g = GameObject.Find("UI").transform;
+        while (g.GetChild(i) != null){
+            if (g.GetChild(i).GetComponent<InventoryController>() != null){
+                invCont = g.GetChild(i).GetComponent<InventoryController>();
+                break;
+            }
+            i++;
+        }
     }
 
     // display description above object
     public void display()
     {
         // instantiate Text once
-        ic.setItemColliders(false);
+        invCont.setItemColliders(false);
         if (iText == 0)
         {
             UI.GetComponent<StartOptions>().inMainMenu = true;
@@ -100,6 +112,7 @@ public class DisplayText : MonoBehaviour {
         else
         {
             stop();
+            
         }
     }
 
@@ -109,9 +122,15 @@ public class DisplayText : MonoBehaviour {
         iText = 0;
         Destroy(textInstance);
         //Destroy(textBG);
-        UI.GetComponent<StartOptions>().inMainMenu = false;
-        ic.setItemColliders(true);
+        UI.GetComponent<StartOptions>().inMainMenu = false; // -> Options Menu and Inventory can't be opened
+        invCont.setItemColliders(true);
         StartCoroutine("leaveInteractionMode");
+
+        // add to Inventory
+        if (this.GetComponent<Item>() != null){
+            Cursor.visible = true;  // leaveInteractionMode can't finish when object is destroyed
+            invCont.addItem(this.GetComponent<Item>());
+        }
     }
 
 	// show where Text will be displayed
