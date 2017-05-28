@@ -5,7 +5,7 @@ using TMPro; // Text Mesh Pro Asset
 
 public class DisplayText : MonoBehaviour {
    
-    private string[] descriptionText;
+    string[] descriptionText;
 
     // display text
     private GameObject text;
@@ -46,6 +46,7 @@ public class DisplayText : MonoBehaviour {
         else
         {
             Debug.Log("Objektname stimmt mit keinem Key überein!");
+            Debug.Log(gameObject.name);
         }
 
         // find InventoryController
@@ -67,7 +68,7 @@ public class DisplayText : MonoBehaviour {
         invCont.setItemColliders(false);
         if (iText == 0)
         {
-            UI.GetComponent<StartOptions>().inMainMenu = true;
+            UI.GetComponent<StartOptions>().inMainMenu = true;  // -> Options Menu and Inventory can't be opened
             textInstance = Instantiate(text, new Vector3 (transform.position.x, transform.position.y, -2.0f), transform.rotation, transform);
             textInstance.transform.localScale = new Vector3 ((textInstance.transform.localScale.x / transform.localScale.x) * textScale,
                                                              (textInstance.transform.localScale.y / transform.localScale.y) * textScale, 0f);
@@ -86,15 +87,15 @@ public class DisplayText : MonoBehaviour {
         }
 
         // cycle through texts
-        if (iText < descriptionText.Length)
+        if (iText < descriptionText.Length && iText >= 0)
         {
 			textMP.text = descriptionText [iText];
 			// bg
-			textMP.ForceMeshUpdate ();
-			Bounds textBounds = textMP.textBounds;
+			//textMP.ForceMeshUpdate ();
+			//Bounds textBounds = textMP.textBounds;
 
-			float marginX = 0.0f;
-			float marginY = 1.0f;
+			//float marginX = 0.0f;
+			//float marginY = 1.0f;
 			//Vector3 rectTransformSizeDelta = new Vector3 ((textBounds.size.x + marginX) / 4.2f, 0.1f, (textBounds.size.y + marginY) / 3f);
 			//textBG.transform.localScale = rectTransformSizeDelta;
 			//textBG.GetComponent<RectTransform> ().sizeDelta = rectTransformSizeDelta;
@@ -119,17 +120,16 @@ public class DisplayText : MonoBehaviour {
     // hide description
     public void stop()
     {
-        iText = 0;
+        iText = -1;
         Destroy(textInstance);
         //Destroy(textBG);
-        UI.GetComponent<StartOptions>().inMainMenu = false; // -> Options Menu and Inventory can't be opened
+        UI.GetComponent<StartOptions>().inMainMenu = false;
         invCont.setItemColliders(true);
-        StartCoroutine("leaveInteractionMode");
 
         // add to Inventory
         if (this.GetComponent<Item>() != null){
-            Cursor.visible = true;  // leaveInteractionMode can't finish when object is destroyed
             invCont.addItem(this.GetComponent<Item>());
+            Destroy(this.gameObject);
         }
     }
 
@@ -137,12 +137,6 @@ public class DisplayText : MonoBehaviour {
     public void OnDrawGizmosSelected(){
         Gizmos.color = Color.red;
         Gizmos.DrawCube(new Vector3 (transform.position.x + offset.x, transform.position.y + offset.y, transform.position.z), new Vector3(0.2f, 1, 1));
-    }
-
-    // fix for: description loops when mouse on object
-    IEnumerator leaveInteractionMode() {
-        yield return new WaitForSeconds(0.1f);
-        Cursor.visible = true;
     }
 
 	// fade AudioSource
@@ -153,8 +147,7 @@ public class DisplayText : MonoBehaviour {
 			audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
 
 			yield return null;
-		}
-
+        }
 		audioSource.Stop ();
 		audioSource.volume = startVolume;
 	}

@@ -93,7 +93,7 @@
 			"file": "Assets/scripts/DisplayText.cs",
 			"settings":
 			{
-				"buffer_size": 4229,
+				"buffer_size": 4674,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -105,14 +105,6 @@
 				"buffer_size": 2948,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/Nutzer/Desktop/Wortsuche.java",
-			"settings":
-			{
-				"buffer_size": 2316,
-				"line_ending": "Unix"
 			}
 		}
 	],
@@ -157,6 +149,8 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Nutzer/Desktop/AnimatedLineChart.fx",
+		"/C/Users/Nutzer/Desktop/Wortsuche.java",
 		"/C/Users/Nutzer/Desktop/Suchen.java",
 		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/scripts/ItemDB.cs",
 		"/D/Programmieren/GitHub/Das_Beste_Spiel_Der_Welt_2.0/Assets/scripts/SlotController.cs",
@@ -262,7 +256,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -290,7 +284,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -320,7 +314,7 @@
 						"translation.y": 486.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -329,7 +323,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4229,
+						"buffer_size": 4674,
 						"regions":
 						{
 						},
@@ -350,7 +344,7 @@
 						"translation.y": 864.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -376,34 +370,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 810.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/C/Users/Nutzer/Desktop/Wortsuche.java",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2316,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1700,
-								1651
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Java/Java.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1188.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

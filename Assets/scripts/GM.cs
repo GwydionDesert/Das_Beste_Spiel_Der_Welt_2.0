@@ -49,6 +49,7 @@ public class GM : MonoBehaviour {
 			}
 			// add key to dictionary
             description.Add(key, text);
+            Debug.Log(description[key]);
         }
     }
 

@@ -16,7 +16,7 @@ public class InventoryController : MonoBehaviour {
 
 	public bool canDragItem;
 
-	void Start () {
+	void Awake () {
 		// create Inventory
 		for (int y = 1; y <= inventorySize.y; y++){
 			for (int x = 1; x <= inventorySize.x; x++){
@@ -26,6 +26,7 @@ public class InventoryController : MonoBehaviour {
 				slot.GetComponent<RectTransform>().anchoredPosition = new Vector3(windwoSize.x / (inventorySize.x + 1) * x, windwoSize.y / (inventorySize.y + 1)* -y, 0);
 			}
 		}
+		this.gameObject.SetActive(false);
 	}
 	
 	void Update () {
@@ -75,14 +76,9 @@ public class InventoryController : MonoBehaviour {
 					GameObject item = Instantiate(itemPrefab) as GameObject;
 					item.transform.SetParent(this.transform.GetChild(x  + (y * (int) inventorySize.y)).transform, false);
 					item.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-					//i.name = name;
-					//i.image = ItemDB.itemList[name].image;
 
 					item.name = i.name;
 					item.GetComponent<Image>().sprite = i.image;
-
-					Destroy(i.gameObject);
-					Cursor.visible = true;
 					item.GetComponent<Item>().inInventory = true;
 
 					return;

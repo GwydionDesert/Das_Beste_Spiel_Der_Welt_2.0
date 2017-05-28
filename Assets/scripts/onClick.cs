@@ -6,7 +6,9 @@ public class onClick : MonoBehaviour {
     private Texture2D cursorActive;
     private Texture2D cursorInactive;
 
-    private bool invContFound = false;
+    public enum State {idle, hit, interact, changeScene, stop};
+    [HideInInspector]
+    public int state = 0;
 
     private void Start()
     {
@@ -16,45 +18,73 @@ public class onClick : MonoBehaviour {
 
     void Update () {
         {
-            // get mouse position to world space
-            Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-            RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
+            switch (state){
+                case ((int) State.idle):
+                    //Cursor.visible = true;
+                    // get mouse position to world space
+                    Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+                    RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
 
-            // stop interaction mode    -   description
-            if (Cursor.visible == false && Input.GetButtonDown("Fire1"))
-            {
-                lastHit.transform.gameObject.GetComponent<DisplayText>().iText ++;
-                lastHit.transform.gameObject.GetComponent<DisplayText>().display();
-            }
-
-            // on mouse over
-            if (hit)
-            {
-                // change cursor icon
-                Cursor.SetCursor(cursorActive, Vector2.zero, CursorMode.Auto);
-
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    lastHit = hit.transform.gameObject;
-
-                    // show object description
-                    // enter Interaction Mode
-                    if (Cursor.visible && hit.transform.GetComponent<DisplayText>() != null)
-                    {
-                        hit.transform.gameObject.GetComponent<DisplayText>().display();
-                        Cursor.visible = false;
+                    if (lastHit != null && Input.GetButtonDown("Fire1")){
+                        state = (int) State.hit;
                     }
 
-                    if (hit.transform.GetComponent<ChangeScene>() != null)
+                    if (hit)
                     {
-                        hit.transform.gameObject.GetComponent<ChangeScene>().changeScene();
+                        // on mouse over change cursor icon
+                        Cursor.SetCursor(cursorActive, Vector2.zero, CursorMode.Auto);
+
+                        // start interaction with object or npc
+                        if (Input.GetButtonDown("Fire1")){
+                            state = (int) State.hit;
+                            lastHit = hit.transform.gameObject;
+                        }
                     }
-                }
-            }
-            else
-            {
-                // reset cursor
-                Cursor.SetCursor(cursorInactive, Vector2.zero, CursorMode.Auto);
+                    else
+                    {
+                        // reset cursor
+                        Cursor.SetCursor(cursorInactive, Vector2.zero, CursorMode.Auto);
+                    }
+                    break;
+
+                case ((int) State.hit):
+                        // show object description
+                        if (lastHit.transform.GetComponent<DisplayText>() != null)
+                            state = (int) State.interact;
+
+                        if (lastHit.transform.GetComponent<ChangeScene>() != null)
+                            state = (int) State.changeScene;
+                    break;
+
+                case ((int) State.interact):
+                    Cursor.visible = false;
+                    lastHit.transform.gameObject.GetComponent<DisplayText>().display();
+                    lastHit.transform.gameObject.GetComponent<DisplayText>().iText ++;
+
+                    if (lastHit.transform.gameObject.GetComponent<DisplayText>().iText > 0)
+                    {
+                        state = (int) State.idle;
+                    }
+                    else{
+                        state = (int) State.stop;
+                    }
+                    break;
+
+                case ((int) State.changeScene):
+                    lastHit.transform.gameObject.GetComponent<ChangeScene>().changeScene();
+                    state = (int) State.idle;
+                    break;
+
+                // end interaction mode
+                case ((int) State.stop):
+                    Cursor.visible = true;
+                    lastHit = null;
+                    state = (int) State.idle;
+                    break;
+
+                default:
+                    Debug.Log("state unknown, state: " + state);
+                break;
             }
         }
     }
