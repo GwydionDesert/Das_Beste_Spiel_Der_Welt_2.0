@@ -4,8 +4,9 @@ using UnityEngine;
 using TMPro; // Text Mesh Pro Asset
 
 public class DisplayText : MonoBehaviour {
-   
-    string[] descriptionText;
+
+   [HideInInspector]
+    public string[] descriptionText;
 
     // display text
     private GameObject text;
@@ -29,8 +30,7 @@ public class DisplayText : MonoBehaviour {
     private InventoryController invCont;
 
     // get Text prefab from GM
-    private void Start()
-    {
+    private void Start(){
         UI = GameObject.Find("UI").gameObject;
         text = GameObject.Find("GM").gameObject.GetComponent<GM>().text;
 
@@ -62,12 +62,10 @@ public class DisplayText : MonoBehaviour {
     }
 
     // display description above object
-    public void display()
-    {
+    public void display(){
         // instantiate Text once
         invCont.setItemColliders(false);
-        if (iText == 0)
-        {
+        if (iText == 0){
             UI.GetComponent<StartOptions>().inMainMenu = true;  // -> Options Menu and Inventory can't be opened
             textInstance = Instantiate(text, new Vector3 (transform.position.x, transform.position.y, -2.0f), transform.rotation, transform);
             textInstance.transform.localScale = new Vector3 ((textInstance.transform.localScale.x / transform.localScale.x) * textScale,
@@ -87,8 +85,7 @@ public class DisplayText : MonoBehaviour {
         }
 
         // cycle through texts
-        if (iText < descriptionText.Length && iText >= 0)
-        {
+        if (iText < descriptionText.Length && iText >= 0){
 			textMP.text = descriptionText [iText];
 			// bg
 			//textMP.ForceMeshUpdate ();
@@ -104,7 +101,8 @@ public class DisplayText : MonoBehaviour {
                 if (iText % 2 == 0) {
                     secondaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
                     StartCoroutine (FadeOut (primaryAS, 0.3f));
-                } else {
+                }
+            else {
                     primaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
                     StartCoroutine (FadeOut (secondaryAS, 0.3f));
                 }
@@ -113,13 +111,11 @@ public class DisplayText : MonoBehaviour {
         else
         {
             stop();
-            
         }
     }
 
     // hide description
-    public void stop()
-    {
+    public void stop(){
         iText = -1;
         Destroy(textInstance);
         //Destroy(textBG);

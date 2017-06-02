@@ -29,7 +29,7 @@ public class onClick : MonoBehaviour {
                         state = (int) State.hit;
                     }
 
-                    if (hit)
+                    if (hit && Cursor.visible == true)
                     {
                         // on mouse over change cursor icon
                         Cursor.SetCursor(cursorActive, Vector2.zero, CursorMode.Auto);

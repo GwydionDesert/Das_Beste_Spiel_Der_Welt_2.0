@@ -10,7 +10,8 @@ public class GM : MonoBehaviour {
     private void Awake()
     {
         keepObject();
-        readTable();
+        readTable(objects, description);
+        readTable(combinations, combo);
 
         Cursor.lockState = CursorLockMode.Confined;
     }
@@ -32,10 +33,10 @@ public class GM : MonoBehaviour {
         }
     }
 
-    private void readTable()
+    private void readTable(TextAsset t, Dictionary<string, string[]> d)
     {
         // Split text by rows
-        String[] s = objects.text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        String[] s = t.text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
         for (int i = 0; i < s.Length; i++)
         {
             // Dict Key = first word in row
@@ -48,8 +49,7 @@ public class GM : MonoBehaviour {
 				text [j] = text [j].Replace ("|", "\n");
 			}
 			// add key to dictionary
-            description.Add(key, text);
-            Debug.Log(description[key]);
+            d.Add(key, text);
         }
     }
 
@@ -68,5 +68,7 @@ public class GM : MonoBehaviour {
     // object description
     [HideInInspector]
     public Dictionary<string, string[]> description = new Dictionary<string, string[]>();
+    public Dictionary<string, string[]> combo = new Dictionary<string, string[]>();
     public TextAsset objects;
+    public TextAsset combinations;
 }
