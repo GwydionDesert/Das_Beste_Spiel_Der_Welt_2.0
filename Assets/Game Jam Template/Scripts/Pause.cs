@@ -7,9 +7,9 @@ public class Pause : MonoBehaviour {
 
 
 	private ShowPanels showPanels;						//Reference to the ShowPanels script used to hide and show UI panels
-	private bool isPaused;								//Boolean to check if the game is paused or not
+	public bool isPaused;								//Boolean to check if the game is paused or not
 	private StartOptions startScript;					//Reference to the StartButton script
-	private bool inInventory;
+	public bool inInventory;
 	
 	//Awake is called before Start()
 	void Awake()
@@ -28,20 +28,24 @@ public class Pause : MonoBehaviour {
 		{
 			//Call the DoPause function to pause the game
 			DoPause();
+			return;
 		} 
 		//If the button is pressed and the game is paused and not in main menu
 		else if (Input.GetButtonDown ("Cancel") && isPaused && !inInventory && !startScript.inMainMenu) 
 		{
 			//Call the UnPause function to unpause the game
 			UnPause ();
+			return;
 		}
 
 		if (Input.GetKeyDown(KeyCode.I) && !inInventory && !isPaused && !startScript.inMainMenu){
 			ShowInventory();
+			return;
 		}
 
-		if (Input.GetButtonDown ("Cancel") && inInventory && !isPaused && !startScript.inMainMenu) {
+		if ((Input.GetButtonDown ("Cancel") || Input.GetKeyDown(KeyCode.I))&& inInventory && !isPaused && !startScript.inMainMenu) {
 			HideInventory();
+			return;
 		}
 	
 	}

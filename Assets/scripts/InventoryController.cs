@@ -66,8 +66,6 @@ public class InventoryController : MonoBehaviour {
 			else{
 				// combine Items
 				if (selectedSlot.childCount > 0){
-					//Debug.Log("Fusion: " + selectedItem.name + " + " + selectedSlot.GetChild(0).name);
-					//selectedItem.SetParent(originalSlot);
 					string item1 = selectedItem.gameObject.name;
 					string item2 = selectedSlot.GetChild(0).gameObject.name;
 					if (combo.ContainsKey(item1) && combo[item1][0].Equals(item2)){
@@ -123,8 +121,6 @@ public class InventoryController : MonoBehaviour {
 				StopAllCoroutines();								// could cause PROBLEMS with outher COROUTINES!!!!!!
 			}
 		}
-
-		UI.GetComponent<StartOptions>().inMainMenu = true;  // -> Options Menu and Inventory can't be opened
 		GameObject textInstance = Instantiate(text, new Vector3 (transform.position.x, transform.position.y, -2.0f), transform.rotation, transform);
 		textInstance.transform.localScale = new Vector3 ((textInstance.transform.localScale.x / transform.localScale.x) * textScale,
 															(textInstance.transform.localScale.y / transform.localScale.y) * textScale, 0f);
@@ -145,6 +141,10 @@ public class InventoryController : MonoBehaviour {
 				item.name = i.name;
 				item.GetComponent<Image>().sprite = i.image;
 				item.GetComponent<Item>().inInventory = true;
+
+				if (!GameObject.Find("GM").GetComponent<GM>().objectInInventory.ContainsKey(i.name)){
+					GameObject.Find("GM").GetComponent<GM>().objectInInventory.Add(i.name, true);
+				}
 
 				return;
 			}

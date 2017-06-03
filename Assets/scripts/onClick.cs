@@ -49,19 +49,19 @@ public class onClick : MonoBehaviour {
 
                 case ((int) State.hit):
                         // show object description
-                        if (lastHit.transform.GetComponent<DisplayText>() != null)
+                        if (lastHit.GetComponent<DisplayText>() != null)
                             state = (int) State.interact;
 
-                        if (lastHit.transform.GetComponent<ChangeScene>() != null)
+                        if (lastHit.GetComponent<ChangeScene>() != null)
                             state = (int) State.changeScene;
                     break;
 
                 case ((int) State.interact):
                     Cursor.visible = false;
-                    lastHit.transform.gameObject.GetComponent<DisplayText>().display();
-                    lastHit.transform.gameObject.GetComponent<DisplayText>().iText ++;
+                    lastHit.GetComponent<DisplayText>().display();
+                    lastHit.GetComponent<DisplayText>().iText ++;
 
-                    if (lastHit.transform.gameObject.GetComponent<DisplayText>().iText > 0)
+                    if (lastHit.GetComponent<DisplayText>().iText > 0)
                     {
                         state = (int) State.idle;
                     }
@@ -71,8 +71,15 @@ public class onClick : MonoBehaviour {
                     break;
 
                 case ((int) State.changeScene):
-                    lastHit.transform.gameObject.GetComponent<ChangeScene>().changeScene();
-                    state = (int) State.idle;
+                    if (lastHit != null){
+                        lastHit.GetComponent<ChangeScene>().changeScene();
+                    }
+
+                    if (lastHit == null){
+                        state = (int) State.idle;
+                        ChangeScene.cleanScene();
+                    }
+                    
                     break;
 
                 // end interaction mode

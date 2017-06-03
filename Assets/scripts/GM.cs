@@ -71,4 +71,6 @@ public class GM : MonoBehaviour {
     public Dictionary<string, string[]> combo = new Dictionary<string, string[]>();
     public TextAsset objects;
     public TextAsset combinations;
+
+    public Dictionary<String, bool> objectInInventory = new Dictionary<string, bool>();
 }

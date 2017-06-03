@@ -1,1 +1,1 @@
-Stock	Stock	Doppelstock	Doppelte Stöcke, doppelte POWER!!
+Stock1	Stock2	Doppelstock	Doppelte Stöcke, doppelte POWER!!

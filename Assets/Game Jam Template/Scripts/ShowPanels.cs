@@ -55,6 +55,13 @@ public class ShowPanels : MonoBehaviour {
 	}
 
 	public void HideInventory(){
+		// delete description text if still there
+		for (int i = 0; i < inventory.transform.childCount; i++){
+			if (inventory.transform.GetChild(i).name.Contains("Clone")){
+				Destroy(inventory.transform.GetChild(i).gameObject);
+			}
+		}
+
 		inventory.SetActive (false);
 	}
 }

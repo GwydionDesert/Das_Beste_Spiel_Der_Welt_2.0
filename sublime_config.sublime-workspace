@@ -84,7 +84,7 @@
 			"file": "Assets/scripts/onClick.cs",
 			"settings":
 			{
-				"buffer_size": 2341,
+				"buffer_size": 3634,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -93,7 +93,7 @@
 			"file": "Assets/scripts/DisplayText.cs",
 			"settings":
 			{
-				"buffer_size": 4674,
+				"buffer_size": 5160,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -149,6 +149,7 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Nutzer/Desktop/models/loot_box_bump_map.png",
 		"/C/Users/Nutzer/Desktop/AnimatedLineChart.fx",
 		"/C/Users/Nutzer/Desktop/Wortsuche.java",
 		"/C/Users/Nutzer/Desktop/Suchen.java",
@@ -293,15 +294,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2341,
+						"buffer_size": 3634,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1005,
-								1005
+								0,
+								0
 							]
 						],
 						"settings":
@@ -323,7 +324,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4674,
+						"buffer_size": 5160,
 						"regions":
 						{
 						},
