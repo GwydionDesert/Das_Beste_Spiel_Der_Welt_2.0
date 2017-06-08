@@ -3,9 +3,9 @@ using System.Collections;
 using UnityEngine;
 using TMPro; // Text Mesh Pro Asset
 
-public class DisplayText : MonoBehaviour {
-
-   [HideInInspector]
+[RequireComponent(typeof(PolygonCollider2D))]
+public class DisplayText : MonoBehaviour {    
+    [HideInInspector]
     public string[] descriptionText;
 
     // display text
@@ -25,8 +25,6 @@ public class DisplayText : MonoBehaviour {
 	public AudioClip[] sound;
 	private AudioSource primaryAS;
 	private AudioSource secondaryAS;
-
-    //private InventoryController ic = new InventoryController();
     private InventoryController invCont;
 
     // get Text prefab from GM
@@ -67,7 +65,7 @@ public class DisplayText : MonoBehaviour {
         invCont.setItemColliders(false);
         if (iText == 0){
             UI.GetComponent<StartOptions>().inMainMenu = true;  // -> Options Menu and Inventory can't be opened
-            textInstance = Instantiate(text, new Vector3 (transform.position.x, transform.position.y, -2.0f), transform.rotation, transform);
+            textInstance = Instantiate(text, new Vector3 (transform.position.x, transform.position.y, -2.0f), Quaternion.Euler(0, 0, transform.rotation.z), transform); // parent rotation is correctet (0, 0, 0)
             textInstance.transform.localScale = new Vector3 ((textInstance.transform.localScale.x / transform.localScale.x) * textScale,
                                                              (textInstance.transform.localScale.y / transform.localScale.y) * textScale, 0f);
             textInstance.transform.position += offset;

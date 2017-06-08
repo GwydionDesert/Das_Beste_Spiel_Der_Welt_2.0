@@ -20,7 +20,6 @@ public class InventoryController : MonoBehaviour {
 	private Dictionary<string, string[]> combo;
 	public Dictionary<string, Sprite> comboIcon;
 
-	private GameObject UI;
 	public Vector3 offset = new Vector3(0,1,0);
 	private GameObject text;
 	private float textScale = 35;
@@ -35,8 +34,7 @@ public class InventoryController : MonoBehaviour {
 				slot.GetComponent<RectTransform>().anchoredPosition = new Vector3(windowSize.x / (inventorySize.x + 1) * x, windowSize.y / (inventorySize.y + 1)* -y, 0);
 			}
 		}
-		
-		UI = GameObject.Find("UI").gameObject;
+
 		text = GameObject.Find("GM").gameObject.GetComponent<GM>().text;
 		combo = GameObject.Find("GM").gameObject.GetComponent<GM>().combo;
 		this.gameObject.SetActive(false);
@@ -70,7 +68,6 @@ public class InventoryController : MonoBehaviour {
 					string item2 = selectedSlot.GetChild(0).gameObject.name;
 					if (combo.ContainsKey(item1) && combo[item1][0].Equals(item2)){
 							combineItems(selectedItem.gameObject, selectedSlot.GetChild(0).gameObject);
-							Debug.Log("1");
 					}
 					else if (combo.ContainsKey(item2) && combo[item2][0].Equals(item1)){
 							combineItems(selectedSlot.GetChild(0).gameObject, selectedItem.gameObject);

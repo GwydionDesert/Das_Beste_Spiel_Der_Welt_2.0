@@ -7,7 +7,7 @@ public class onClick : MonoBehaviour {
     private Texture2D cursorInactive;
 
     public enum State {idle, hit, interact, changeScene, stop};
-    [HideInInspector]
+    //[HideInInspector]
     public int state = 0;
 
     private void Start()
