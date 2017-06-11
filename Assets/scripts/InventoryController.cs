@@ -12,7 +12,6 @@ public class InventoryController : MonoBehaviour {
 
 	public GameObject slotPrefab, itemPrefab;
 	public Vector2 inventorySize = new Vector2(4,6);
-	public float slotSize;
 	public Vector2 windowSize;
 
 	public bool canDragItem;

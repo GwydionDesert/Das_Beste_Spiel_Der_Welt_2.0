@@ -12,7 +12,6 @@ public class DisplayText : MonoBehaviour {
     private GameObject text;
 	private TextMeshPro textMP;
     private GameObject textInstance;
-	private GameObject textBG;
 
     [HideInInspector]
     public int iText;		// ammount of text instances
@@ -70,30 +69,12 @@ public class DisplayText : MonoBehaviour {
                                                              (textInstance.transform.localScale.y / transform.localScale.y) * textScale, 0f);
             textInstance.transform.position += offset;
 
-			//textBG = Instantiate (GM.gm.textBackground, new Vector3(textInstance.transform.position.x, textInstance.transform.position.y, -1.0f), GM.gm.textBackground.transform.rotation, transform);
-
 			textMP = textInstance.GetComponent<TextMeshPro> ();
-
-			try {
-                //primaryAS.PlayOneShot (sound [0], GM.gm.effect_volume);
-            }
-            catch (Exception e){
-                Debug.Log(e.StackTrace);
-            }
         }
 
         // cycle through texts
         if (iText < descriptionText.Length && iText >= 0){
 			textMP.text = descriptionText [iText];
-			// bg
-			//textMP.ForceMeshUpdate ();
-			//Bounds textBounds = textMP.textBounds;
-
-			//float marginX = 0.0f;
-			//float marginY = 1.0f;
-			//Vector3 rectTransformSizeDelta = new Vector3 ((textBounds.size.x + marginX) / 4.2f, 0.1f, (textBounds.size.y + marginY) / 3f);
-			//textBG.transform.localScale = rectTransformSizeDelta;
-			//textBG.GetComponent<RectTransform> ().sizeDelta = rectTransformSizeDelta;
 
             if (sound.Length != 0){
                 if (iText % 2 == 0) {
