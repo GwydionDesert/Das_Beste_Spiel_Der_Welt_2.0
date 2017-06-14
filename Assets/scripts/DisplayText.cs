@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using TMPro; // Text Mesh Pro Asset
+using TMPro;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 public class DisplayText : MonoBehaviour {    
@@ -9,17 +9,12 @@ public class DisplayText : MonoBehaviour {
     public string[] descriptionText;
 
     // display text
-    private GameObject text;
-	private TextMeshPro textMP;
-    private GameObject textInstance;
+    private GameObject textField;
+	private TextMeshProUGUI textMP;
 
     [HideInInspector]
     public int iText;		// ammount of text instances
     private GameObject UI;
-
-    private float textScale = 0.9f;
-
-    public Vector3 offset = new Vector3(0,1,0);
 
 	public AudioClip[] sound;
 	private AudioSource primaryAS;
@@ -29,7 +24,7 @@ public class DisplayText : MonoBehaviour {
     // get Text prefab from GM
     private void Start(){
         UI = GameObject.Find("UI").gameObject;
-        text = GameObject.Find("GM").gameObject.GetComponent<GM>().text;
+        textField = GameObject.Find("GM").gameObject.GetComponent<GM>().textField;
 
 		primaryAS = gameObject.AddComponent<AudioSource>();
 		primaryAS.clip = Resources.Load (name) as AudioClip;
@@ -64,12 +59,9 @@ public class DisplayText : MonoBehaviour {
         invCont.setItemColliders(false);
         if (iText == 0){
             UI.GetComponent<StartOptions>().inMainMenu = true;  // -> Options Menu and Inventory can't be opened
-            textInstance = Instantiate(text, new Vector3 (transform.position.x, transform.position.y, -2.0f), Quaternion.Euler(0, 0, transform.rotation.z), transform); // parent rotation is correctet (0, 0, 0)
-            textInstance.transform.localScale = new Vector3 ((textInstance.transform.localScale.x / transform.localScale.x) * textScale,
-                                                             (textInstance.transform.localScale.y / transform.localScale.y) * textScale, 0f);
-            textInstance.transform.position += offset;
 
-			textMP = textInstance.GetComponent<TextMeshPro> ();
+            textField.SetActive(true);
+            textMP = textField.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         }
 
         // cycle through texts
@@ -95,9 +87,15 @@ public class DisplayText : MonoBehaviour {
 
     // hide description
     public void stop(){
+        if (iText % 2 == 0){
+            StartCoroutine (FadeOut (primaryAS, 0.0f));
+        }
+        else {
+            StartCoroutine (FadeOut (secondaryAS, 0.0f));
+        }
+
         iText = -1;
-        Destroy(textInstance);
-        //Destroy(textBG);
+        textField.SetActive(false);
         UI.GetComponent<StartOptions>().inMainMenu = false;
         invCont.setItemColliders(true);
 
@@ -106,12 +104,6 @@ public class DisplayText : MonoBehaviour {
             invCont.addItem(this.GetComponent<Item>());
             Destroy(this.gameObject);
         }
-    }
-
-	// show where Text will be displayed
-    public void OnDrawGizmosSelected(){
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(new Vector3 (transform.position.x + offset.x, transform.position.y + offset.y, transform.position.z), new Vector3(0.2f, 1, 1));
     }
 
 	// fade AudioSource

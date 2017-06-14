@@ -1,1 +1,3 @@
 Stock1	Stock2	Doppelstock	Doppelte Stöcke, doppelte POWER!!
+Eimer	Seil	Eimer+Seil
+Nadel	Magnet	Kompass

@@ -16,11 +16,11 @@ public class InventoryController : MonoBehaviour {
 
 	public bool canDragItem;
 
+	public GameObject text;
+
 	private Dictionary<string, string[]> combo;
-	public Dictionary<string, Sprite> comboIcon;
 
 	public Vector3 offset = new Vector3(0,1,0);
-	private GameObject text;
 	private float textScale = 35;
 
 	void Awake () {
@@ -34,7 +34,6 @@ public class InventoryController : MonoBehaviour {
 			}
 		}
 
-		text = GameObject.Find("GM").gameObject.GetComponent<GM>().text;
 		combo = GameObject.Find("GM").gameObject.GetComponent<GM>().combo;
 		this.gameObject.SetActive(false);
 	}
@@ -119,7 +118,7 @@ public class InventoryController : MonoBehaviour {
 		}
 		GameObject textInstance = Instantiate(text, new Vector3 (transform.position.x, transform.position.y, -2.0f), transform.rotation, transform);
 		textInstance.transform.localScale = new Vector3 ((textInstance.transform.localScale.x / transform.localScale.x) * textScale,
-															(textInstance.transform.localScale.y / transform.localScale.y) * textScale, 0f);
+														 (textInstance.transform.localScale.y / transform.localScale.y) * textScale, 0f);
 		textInstance.transform.position += offset;
 		TextMeshPro textMP = textInstance.GetComponent<TextMeshPro> ();
 		textMP.text = s;

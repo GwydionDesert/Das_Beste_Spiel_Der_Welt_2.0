@@ -12,7 +12,6 @@ public class StartOptions : MonoBehaviour {
 	public bool changeScenes;											//If true, load a new scene when Start is pressed, if false, fade out UI and continue in single scene
 	public bool changeMusicOnStart;										//Choose whether to continue playing menu music or start a new music clip
 
-
 	[HideInInspector] public bool inMainMenu = true;					//If true, pause button disabled in main menu (Cancel in input manager, default escape key)
 	[HideInInspector] public Animator animColorFade; 					//Reference to animator which will fade to and from black when starting game.
 	[HideInInspector] public Animator animMenuAlpha;					//Reference to animator that will fade out alpha of MenuPanel canvas group
@@ -24,7 +23,8 @@ public class StartOptions : MonoBehaviour {
 	private float fastFadeIn = .01f;									//Very short fade time (10 milliseconds) to start playing music immediately without a click/glitch
 	private ShowPanels showPanels;										//Reference to ShowPanels script on UI GameObject, to show and hide panels
 
-	
+	private bool starting = false;
+
 	void Awake()
 	{
 		//Get a reference to ShowPanels attached to UI object
@@ -34,9 +34,26 @@ public class StartOptions : MonoBehaviour {
 		playMusic = GetComponent<PlayMusic> ();
 	}
 
+	void Update()
+	{
+		if (Input.GetButtonDown("Fire1") && starting){
+			CancelInvoke();
+			Invoke ("LoadDelayed", 0.1f);
+
+			foreach (Transform t in transform){
+				if (t.gameObject.name == "FadeImage"){
+					t.gameObject.SetActive(false);
+					
+				}
+			}
+			starting = false;
+		}
+	}
+
 
 	public void StartButtonClicked()
 	{
+
 		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic, using length of fadeColorAnimationClip as time. 
 		//To change fade time, change length of animation "FadeToColor"
 		if (changeMusicOnStart) 
@@ -47,8 +64,10 @@ public class StartOptions : MonoBehaviour {
 		//If changeScenes is true, start fading and change scenes halfway through animation when screen is blocked by FadeImage
 		if (changeScenes) 
 		{
+			Cursor.visible = false;
 			//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
-			Invoke ("LoadDelayed", fadeColorAnimationClip.length * .5f);
+			Invoke ("LoadDelayed", fadeColorAnimationClip.length * 0.9f);
+			starting = true;
 
 			//Set the trigger of Animator animColorFade to start transition to the FadeToOpaque state.
 			animColorFade.SetTrigger ("fade");
@@ -94,6 +113,7 @@ public class StartOptions : MonoBehaviour {
 
 		//Load the selected scene, by scene index number in build settings
 		SceneManager.LoadScene (sceneToStart);
+		Cursor.visible = true;
 	}
 
 	public void HideDelayed()

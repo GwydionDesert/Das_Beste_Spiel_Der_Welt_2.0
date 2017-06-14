@@ -18,7 +18,6 @@ public class ChangeScene : MonoBehaviour {
         Dictionary<string, bool> d = GameObject.Find("GM").GetComponent<GM>().objectInInventory;
         foreach(string key in d.Keys)
         {
-            Debug.Log(key);
             if (d[key] == true){
                 if (GameObject.Find(key) != null){
                     Destroy(GameObject.Find(key).gameObject);

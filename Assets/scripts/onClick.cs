@@ -6,7 +6,7 @@ public class onClick : MonoBehaviour {
     private Texture2D cursorActive;
     private Texture2D cursorInactive;
 
-    public enum State {idle, hit, interact, changeScene, stop};
+    public enum State {idle, hit, interact, quest, changeScene, stop};
     //[HideInInspector]
     public int state = 0;
 
@@ -52,6 +52,9 @@ public class onClick : MonoBehaviour {
                         if (lastHit.GetComponent<DisplayText>() != null)
                             state = (int) State.interact;
 
+                        if (lastHit.GetComponent<Quest>() != null)
+                            state = (int) State.quest;
+
                         if (lastHit.GetComponent<ChangeScene>() != null)
                             state = (int) State.changeScene;
                     break;
@@ -69,6 +72,21 @@ public class onClick : MonoBehaviour {
                         state = (int) State.stop;
                     }
                     break;
+                
+                case ((int) State.quest):
+                    Cursor.visible = false;
+                    lastHit.GetComponent<Quest>().questLine();
+                    lastHit.GetComponent<Quest>().iText ++;
+
+                    if (lastHit.GetComponent<Quest>().iText > 0)
+                    {
+                        state = (int) State.idle;
+                    }
+                    else{
+                        state = (int) State.stop;
+                    }
+                    break;
+
 
                 case ((int) State.changeScene):
                     if (lastHit != null){

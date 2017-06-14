@@ -56,7 +56,8 @@ public class GM : MonoBehaviour {
 //********************************************************************************************************
 	// public variables
 
-    public GameObject text;
+    //public GameObject text;
+    public GameObject textField;
     
     public Texture2D cursorActive;
     public Texture2D cursorInactive;
