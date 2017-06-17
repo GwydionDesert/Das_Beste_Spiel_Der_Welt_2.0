@@ -2,7 +2,7 @@
 
 public class onClick : MonoBehaviour {
 
-    private GameObject lastHit;
+    public GameObject lastHit;
     private Texture2D cursorActive;
     private Texture2D cursorInactive;
 
@@ -84,6 +84,7 @@ public class onClick : MonoBehaviour {
                     }
                     else{
                         state = (int) State.stop;
+                        lastHit = null;
                     }
                     break;
 

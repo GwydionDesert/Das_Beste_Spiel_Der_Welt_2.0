@@ -70,6 +70,7 @@ public class GM : MonoBehaviour {
     [HideInInspector]
     public Dictionary<string, string[]> description = new Dictionary<string, string[]>();
     public Dictionary<string, string[]> combo = new Dictionary<string, string[]>();
+    public Dictionary<string, int> questState = new Dictionary<string, int>();
     public TextAsset objects;
     public TextAsset combinations;
 

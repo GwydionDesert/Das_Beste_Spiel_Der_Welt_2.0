@@ -21,7 +21,7 @@ public class Quest : MonoBehaviour {
 	private AudioSource secondaryAS;
     private InventoryController invCont;
 
-    public int state = 0;
+    private int state = 0;
 
     // get Text prefab from GM
     private void Start(){
@@ -44,49 +44,70 @@ public class Quest : MonoBehaviour {
             }
             i++;
         }
+
+        if (GM.gm.questState.ContainsKey(gameObject.name)){
+            state = GM.gm.questState[gameObject.name];
+        }
+        else{
+            GM.gm.questState.Add(gameObject.name, state);
+        }
     }
 
     public void questLine(){
-        // progress in Quest Line
-        if (!stateChanged){
-            if (chapter[state].needsItem != null){
-                // find quest item in inventory
-                foreach(Transform t in invCont.transform){
-                    if (t.childCount > 0){
-                        if (t.GetChild(0).gameObject.name.Equals(chapter[state].needsItem)){
-                            
-                            // remove quest item from inventory
-                            Destroy(t.GetChild(0).gameObject);
-
-                            // add item
-                            if (chapter[state].givesItem != ""){
-                                invCont.addItem(new Item(chapter[state].givesItem, (Sprite) Resources.Load("Icons//" + chapter[state].givesItem + ".psd")));
-                            }
-
-                            state ++;
-                            stateChanged = true;
-                        }
-                    }
-                //if (GameObject.Find("GM").GetComponent<GM>().objectInInventory.ContainsKey(chapter[state].needsItem)){
-                    
-                }
-            }
-            else{
-                if (chapter[state].givesItem != ""){
-                    invCont.addItem(new Item(chapter[state].givesItem, (Sprite) Resources.Load("Icons//" + chapter[state].givesItem + ".psd")));
-                }
-                state ++;
-                stateChanged = true;
-            }
-        }
-
         //#################################################
         // specific Quests
-        if (gameObject.name.Equals("Hippogreif") && state >= chapter.Length - 1){
+        if (gameObject.name.Equals("Hippogreif") && state >= chapter.Length){
             GameObject.Find("Auto").GetComponent<PolygonCollider2D>().enabled = true;
+            stop();
+        }
+        if (gameObject.name.Equals("Einhorn") && state >= chapter.Length){
+            GameObject.Find("changeSceneKarte").GetComponent<PolygonCollider2D>().enabled = true;
+            stop();
         }
 
-        display(chapter[state].text);
+        // progress in Quest Line
+        if (state < chapter.Length){
+            if (!stateChanged){
+                if (chapter[state].needsItem != ""){
+                    // u haz item?
+                    foreach(Transform t in invCont.transform){
+                        if (t.childCount > 0){
+                            if (t.GetChild(0).gameObject.name.Equals(chapter[state].needsItem)){
+                                // remove quest item from inventory
+                                Destroy(t.GetChild(0).gameObject);
+
+                                // add item
+                                if (chapter[state].givesItem != null){
+                                    invCont.addItem(new Item(chapter[state].givesItem.name,chapter[state].givesItem));
+                                }
+
+                                state ++;
+                                stateChanged = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                else{
+                    if (chapter[state].givesItem != null){
+                        invCont.addItem(new Item(chapter[state].givesItem.name, chapter[state].givesItem));
+                    }
+                    state ++;
+                    stateChanged = true;
+                }
+            }
+        }
+        else {
+            stop();
+        }
+
+        if (stateChanged){
+            GM.gm.questState[gameObject.name] = state;
+        }
+
+        if (state < chapter.Length){
+            display(chapter[state].text);
+        }
     }
 
     // display questtext
@@ -114,7 +135,6 @@ public class Quest : MonoBehaviour {
         }
         else
         {
-            
             stop();
         }
     }
@@ -133,13 +153,17 @@ public class Quest : MonoBehaviour {
         UI.GetComponent<StartOptions>().inMainMenu = false;
         invCont.setItemColliders(true);
 
-        stateChanged = false;
-
+        // delete char
         if (state > 0){
-            if (chapter[state].vanishes){
+            if (chapter[state - 1].vanishes){
+                Camera.main.GetComponent<onClick>().state = (int) onClick.State.stop;
+                GM.gm.objectInInventory.Add(gameObject.name, true);
+                Debug.Log(gameObject.name);
                 Destroy(gameObject);
             }
         }
+
+        stateChanged = false;
     }
 
 	// fade AudioSource
@@ -162,6 +186,6 @@ public class Chapter{
     public String[] text;
     public AudioClip[] sound;
     public String needsItem;
-    public String givesItem;
+    public Sprite givesItem;
     public bool vanishes;
 }

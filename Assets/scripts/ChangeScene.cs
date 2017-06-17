@@ -21,7 +21,6 @@ public class ChangeScene : MonoBehaviour {
             if (d[key] == true){
                 if (GameObject.Find(key) != null){
                     Destroy(GameObject.Find(key).gameObject);
-                    Debug.Log("Destroy: " + GameObject.Find(key).name);
                 }
             }
         }
