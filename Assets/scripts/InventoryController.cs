@@ -160,8 +160,8 @@ public class InventoryController : MonoBehaviour {
 		}
 	}
 
-	    public void OnDrawGizmosSelected(){
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(new Vector3 (transform.position.x + offset.x, transform.position.y + offset.y, transform.position.z), new Vector3(0.2f, 1, 1));
-    }
+		public void OnDrawGizmosSelected(){
+		Gizmos.color = Color.red;
+		Gizmos.DrawCube(new Vector3 (transform.position.x + offset.x, transform.position.y + offset.y, transform.position.z), new Vector3(0.2f, 1, 1));
+	}
 }

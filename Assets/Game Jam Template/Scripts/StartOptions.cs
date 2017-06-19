@@ -43,7 +43,7 @@ public class StartOptions : MonoBehaviour {
 			foreach (Transform t in transform){
 				if (t.gameObject.name == "FadeImage"){
 					t.gameObject.SetActive(false);
-					
+					break;
 				}
 			}
 			starting = false;
