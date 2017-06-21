@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -18,7 +19,8 @@ public class InventoryController : MonoBehaviour {
 
 	public GameObject text;
 
-	private Dictionary<string, string[]> combo;
+	private String[,] combo;
+	private int comboPos;
 
 	public Vector3 offset = new Vector3(0,1,0);
 	private float textScale = 35;
@@ -34,7 +36,8 @@ public class InventoryController : MonoBehaviour {
 			}
 		}
 
-		combo = GameObject.Find("GM").gameObject.GetComponent<GM>().combo;
+		combo = GM.gm.combo;
+
 		this.gameObject.SetActive(false);
 	}
 
@@ -62,17 +65,24 @@ public class InventoryController : MonoBehaviour {
 			else{
 				// combine Items
 				if (selectedSlot.childCount > 0){
-					string item1 = selectedItem.gameObject.name;
-					string item2 = selectedSlot.GetChild(0).gameObject.name;
-					if (combo.ContainsKey(item1) && combo[item1][0].Equals(item2)){
-							combineItems(selectedItem.gameObject, selectedSlot.GetChild(0).gameObject);
-					}
-					else if (combo.ContainsKey(item2) && combo[item2][0].Equals(item1)){
-							combineItems(selectedSlot.GetChild(0).gameObject, selectedItem.gameObject);
-					}
-					else {
-						selectedItem.SetParent(originalSlot);
-						displayText("So wird das nichts.");
+					GameObject item1 = selectedItem.gameObject;
+					GameObject item2 = selectedSlot.GetChild(0).gameObject;
+
+					for (int i = 0; i < combo.Length / 4; i ++){
+						if (combo[0,i].Equals(item1.name) && combo[1,i].Equals(item2.name)){
+								comboPos = i;
+								combineItems(item1, item2);
+								break;
+						}
+						else if (combo[0,i].Equals(item2.name) && combo[1,i].Equals(item1.name)){
+							comboPos = i;
+							combineItems(item2, item1);
+							break;
+						}
+						else {
+							selectedItem.SetParent(originalSlot);
+							displayText("So wird das nichts.");
+						}
 					}
 				}
 				else {
@@ -88,24 +98,28 @@ public class InventoryController : MonoBehaviour {
 	}
 
 	private void combineItems(GameObject item1, GameObject item2){
-		// show Text
-		Debug.Log(combo[item1.name][2]);
-		displayText(combo[item1.name][2]);
+		if (comboPos >= 0){
+			// show Text
+			displayText(combo[3, comboPos]);
 
-		GameObject comboItem = Instantiate(itemPrefab) as GameObject;
-		comboItem.transform.SetParent(selectedSlot.transform, false);
-		comboItem.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-		comboItem.name = combo[item1.name][1];
-		if (Resources.Load<Sprite>("Icons/" + combo[item1.name][1]) != null){
-			comboItem.GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + combo[item1.name][1]);
-		}
-		else{
-			Debug.Log("Icon not found: Icons/" + combo[item1.name][1]);
-		}
-		comboItem.GetComponent<Item>().inInventory = true;
+			GameObject comboItem = Instantiate(itemPrefab) as GameObject;
+			comboItem.transform.SetParent(selectedSlot.transform, false);
+			comboItem.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+			comboItem.name = combo[2, comboPos];
 
-		Destroy(item1);
-		Destroy(item2);
+			if (Resources.Load<Sprite>("Icons/" + combo[2, comboPos]) != null){
+				comboItem.GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + combo[2, comboPos]);
+			}
+			else{
+				Debug.Log("Icon not found: Icons/" + combo[2, comboPos]);
+			}
+			comboItem.GetComponent<Item>().inInventory = true;
+
+			Destroy(item1);
+			Destroy(item2);
+
+			comboPos = -1;
+		}
 	}
 
 	private void displayText (string s){

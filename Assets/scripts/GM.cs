@@ -11,7 +11,8 @@ public class GM : MonoBehaviour {
 	{
 		keepObject();
 		readTable(objects, description);
-		readTable(combinations, combo);
+		combo = new String[4, getLength(combinations)];
+		combo = readTable(combinations);
 
 		Cursor.lockState = CursorLockMode.Confined;
 	}
@@ -52,11 +53,37 @@ public class GM : MonoBehaviour {
 			d.Add(key, text);
 		}
 	}
+	
+	private String[,] readTable(TextAsset t)
+	{
+		// Split text by rows
+		String[] s = t.text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+		String[,] arr = new String[4, s.Length]; 
+		for (int i = 0; i < s.Length; i++)
+		{
+			String[] text = s[i].Split('\t');
+
+			// make escape characters useable (| -> \n)
+			for (int j = 0; j < text.Length; j++) {
+				text [j] = text [j].Replace ("|", "\n");
+			}
+
+			for (int j = 0; j < text.Length; j++){
+				arr[j,i] = text[j];
+			}
+		}
+		return arr;
+	}
+
+	private int getLength(TextAsset t){
+		String[] s = t.text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+		return s.Length;
+	}
 
 //********************************************************************************************************
 	// public variables
 
-	//public GameObject text;
 	public GameObject textField;
 
 	public Texture2D cursorActive;
@@ -66,10 +93,15 @@ public class GM : MonoBehaviour {
 	public float music_volume;
 	public float effect_volume;
 
+	public bool karteHoehle = false;
+	public bool kartePilze = false;
+	public bool karteWege = false;
+	public bool karteMitte = false;
+
 	// object description
 	[HideInInspector]
 	public Dictionary<string, string[]> description = new Dictionary<string, string[]>();
-	public Dictionary<string, string[]> combo = new Dictionary<string, string[]>();
+	public String[,] combo = new String[4, 0];
 	public Dictionary<string, int> questState = new Dictionary<string, int>();
 	public TextAsset objects;
 	public TextAsset combinations;

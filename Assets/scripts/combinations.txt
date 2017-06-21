@@ -1,3 +1,34 @@
-Stock1	Stock2	Doppelstock	Doppelte Stöcke, doppelte POWER!!
+Stock1	Stock2	Multistock2
+Stock1	Stock3	Multistock2
+Stock1	Stock4	Multistock2
+Stock1	Stock5	Multistock2
+Stock2	Stock3	Multistock2
+Stock2	Stock4	Multistock2
+Stock2	Stock5	Multistock2
+Stock3	Stock4	Multistock2
+Stock3	Stock5	Multistock2
+Stock4	Stock5	Multistock2
+
+Multistock2	Stock1	Multistock3
+Multistock2	Stock2	Multistock3
+Multistock2	Stock3	Multistock3
+
+
+Multistock3	Stock1	Multistock4
+Multistock3	Stock2	Multistock4
+Multistock3	Stock3	Multistock4
+Multistock3	Stock4	Multistock4
+Multistock3	Stock5	Multistock4
+
+Multistock4	Stock1	Multistock5
+Multistock4	Stock2	Multistock5
+Multistock4	Stock3	Multistock5
+Multistock4	Stock4	Multistock5
+Multistock4	Stock5	Multistock5
+
+Mutlistock2	Multistock2	Multistock4
+Multistock2	Multistock3	Multistock5
+
 Eimer	Seil	Eimer+Seil
 Nadel	Magnet	Kompass
+Multistock5	Seil	Strickleiter

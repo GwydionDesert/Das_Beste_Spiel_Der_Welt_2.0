@@ -16,8 +16,7 @@ public class ChangeScene : MonoBehaviour {
 	public static void cleanScene(){
 		// delete all objects which are in Inventory
 		Dictionary<string, bool> d = GameObject.Find("GM").GetComponent<GM>().objectInInventory;
-		foreach(string key in d.Keys)
-		{
+		foreach(string key in d.Keys){
 			if (d[key] == true){
 				if (GameObject.Find(key) != null){
 					Destroy(GameObject.Find(key).gameObject);
