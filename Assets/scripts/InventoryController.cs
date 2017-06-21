@@ -122,7 +122,7 @@ public class InventoryController : MonoBehaviour {
 		}
 	}
 
-	private void displayText (string s){
+	public void displayText (string s){
 		// clear shown text
 		foreach (Transform child in transform){
 			if (child.gameObject.name.Contains("(Clone)")){

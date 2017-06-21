@@ -153,6 +153,14 @@ public class Quest : MonoBehaviour {
 		if (gameObject.name.Equals("karteHoehle") && state >= chapter.Length){
 			GM.gm.karteHoehle = true;
 		}
+
+		if (gameObject.name.Equals("karteWald") && state >= chapter.Length){
+			foreach(Transform t in GameObject.Find("UI").transform){
+				if (t.gameObject.name.Equals("SiegKarte")){
+					t.gameObject.SetActive(true);
+				}
+			}
+		}
 	}
 
 	private bool playerHasObject(){
