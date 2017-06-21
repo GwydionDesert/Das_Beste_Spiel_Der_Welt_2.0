@@ -4,10 +4,9 @@ using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(PolygonCollider2D))]
-public class Quest : MonoBehaviour {    
+public class Quest : MonoBehaviour {
 
 	public Chapter[] chapter;
-	private bool stateChanged = false;
 
 	// display text
 	private GameObject textField;
@@ -21,7 +20,12 @@ public class Quest : MonoBehaviour {
 	private AudioSource secondaryAS;
 	private InventoryController invCont;
 
-	private int state = 0;
+	public int state = 0;
+	private bool willDie = false;
+	private bool displayingText = false;
+
+	private String[] displayText;
+	private AudioClip[] playingSounds;
 
 	// get Text prefab from GM
 	private void Start(){
@@ -51,67 +55,61 @@ public class Quest : MonoBehaviour {
 		else{
 			GM.gm.questState.Add(gameObject.name, state);
 		}
+
+		if (state > 0){
+			if (chapter[state - 1].vanishes){
+				specificQuests();
+				Camera.main.GetComponent<onClick>().state = onClick.State.stop;
+				Destroy(gameObject);
+			}
+		}
 	}
 
 	public void questLine(){
-		//#################################################
-		// specific Quests
-		if (gameObject.name.Equals("Hippogreif") && state >= chapter.Length){
-			GameObject.Find("Auto").GetComponent<PolygonCollider2D>().enabled = true;
-			stop();
-		}
-		if (gameObject.name.Equals("Einhorn") && state >= chapter.Length){
-			GameObject.Find("changeSceneKarte").GetComponent<PolygonCollider2D>().enabled = true;
-			stop();
-		}
 
-		// progress in Quest Line
-		if (state < chapter.Length){
-			if (!stateChanged){
-				if (chapter[state].needsItem != ""){
-					// u haz item?
-					foreach(Transform t in invCont.transform){
-						if (t.childCount > 0){
-							if (t.GetChild(0).gameObject.name.Equals(chapter[state].needsItem)){
-								// remove quest item from inventory
-								Destroy(t.GetChild(0).gameObject);
-
-								// add item
-								if (chapter[state].givesItem != null){
-									invCont.addItem(new Item(chapter[state].givesItem.name,chapter[state].givesItem));
-								}
-
-								state ++;
-								stateChanged = true;
-								break;
-							}
-						}
-					}
-				}
-				else{
+		if (!displayingText){
+			// progress in Quest Line
+			if (state < chapter.Length){
+				if (playerHasObject()){
 					if (chapter[state].givesItem != null){
-						invCont.addItem(new Item(chapter[state].givesItem.name, chapter[state].givesItem));
+						// add item
+						invCont.addItem(new Item(chapter[state].givesItem.name,chapter[state].givesItem));
 					}
+
 					state ++;
-					stateChanged = true;
+					GM.gm.questState[gameObject.name] = state;
+
+					if (chapter[state].vanishes){
+						willDie = true;
+					}
+
+					display(new String[] {chapter[state - 1].text[0], chapter[state].text[0]}, new AudioClip[] {chapter[state - 1].sound[0], chapter[state].sound[0]});
+				}
+				else {
+					display(chapter[state].text, chapter[state].sound);
 				}
 			}
 		}
 		else {
-			stop();
+			display(displayText, playingSounds);
 		}
+	}
 
-		if (stateChanged){
-			GM.gm.questState[gameObject.name] = state;
+	private void specificQuests(){
+		if (gameObject.name.Equals("Hippogreif") && state >= chapter.Length){
+			GameObject.Find("Auto").GetComponent<PolygonCollider2D>().enabled = true;
 		}
-
-		if (state < chapter.Length){
-			display(chapter[state].text);
+		if (gameObject.name.Equals("Einhorn") && state >= chapter.Length){
+			GameObject.Find("changeSceneKarte").GetComponent<PolygonCollider2D>().enabled = true;
 		}
 	}
 
 	// display questtext
-	private void display(String[] questText){
+	private void display(String[] questText, AudioClip[] sound){
+		displayText = questText;
+		playingSounds = sound;
+
+		displayingText = true;
 		// instantiate Text once
 		invCont.setItemColliders(false);
 		if (iText == 0){
@@ -122,15 +120,18 @@ public class Quest : MonoBehaviour {
 		// cycle through texts
 		if (iText < questText.Length && iText >= 0){
 			textMP.text = questText[iText];
-			if (chapter[state].sound.Length != 0){
+			try{
 				if (iText % 2 == 0) {
-					secondaryAS.PlayOneShot (chapter[state].sound [iText], GM.gm.effect_volume);
+					secondaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
 					StartCoroutine (FadeOut (primaryAS, 0.3f));
 				}
 				else {
-					primaryAS.PlayOneShot (chapter[state].sound [iText], GM.gm.effect_volume);
+					primaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
 					StartCoroutine (FadeOut (secondaryAS, 0.3f));
 				}
+			}
+			catch{
+				Debug.Log("Audio not found! " + state + " : " + gameObject.name);
 			}
 		}
 		else
@@ -141,6 +142,8 @@ public class Quest : MonoBehaviour {
 
 	// hide description
 	public void stop(){
+		displayingText = false;
+
 		if (iText % 2 == 0){
 			StartCoroutine (FadeOut (primaryAS, 0.0f));
 		}
@@ -153,16 +156,33 @@ public class Quest : MonoBehaviour {
 		UI.GetComponent<StartOptions>().inMainMenu = false;
 		invCont.setItemColliders(true);
 
-		// delete char
-		if (state > 0){
-			if (chapter[state - 1].vanishes){
-				Camera.main.GetComponent<onClick>().state = onClick.State.stop;
-				GM.gm.objectInInventory.Add(gameObject.name, true);
-				Destroy(gameObject);
+		if (willDie){
+			state ++;
+			GM.gm.questState[gameObject.name] = state;
+			specificQuests();
+
+			Camera.main.GetComponent<onClick>().state = onClick.State.stop;
+			Destroy(gameObject);
+		}
+	}
+
+	private bool playerHasObject(){
+		if (chapter[state].needsItem != ""){
+			// look through inventory
+			foreach(Transform t in invCont.transform){
+				if (t.childCount > 0){
+					if (t.GetChild(0).gameObject.name.Equals(chapter[state].needsItem)){
+						// remove quest item from inventory
+						Destroy(t.GetChild(0).gameObject);
+						return true;
+					}
+				}
 			}
 		}
-
-		stateChanged = false;
+		else{
+			return true;
+		}
+		return false;
 	}
 
 	// fade AudioSource

@@ -78,7 +78,7 @@ public class onClick : MonoBehaviour {
 						state = State.stop;
 					}
 					break;
-				
+			
 				case (State.quest):
 					if (lastHit != null){
 						Cursor.visible = false;
@@ -114,7 +114,6 @@ public class onClick : MonoBehaviour {
 
 				// end interaction mode
 				case (State.stop):
-					Debug.Log("stop");
 					Cursor.visible = true;
 					lastHit = null;
 					state = State.idle;
