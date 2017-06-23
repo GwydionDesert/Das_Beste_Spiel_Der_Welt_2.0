@@ -5,13 +5,11 @@ using UnityEngine;
 public class MainQuest : MonoBehaviour {
 
 	private int count = 0;
-	private InventoryController invCont;
 	void Start () {
 		int i = 0;
 		Transform g = GameObject.Find("UI").transform;
 		while (g.GetChild(i) != null){
 			if (g.GetChild(i).GetComponent<InventoryController>() != null){
-				invCont = g.GetChild(i).GetComponent<InventoryController>();
 				break;
 			}
 			i++;

@@ -11,6 +11,7 @@ public class Quest : MonoBehaviour {
 	// display text
 	private GameObject textField;
 	private TextMeshProUGUI textMP;
+	private GameObject knuffel;
 
 	[HideInInspector]
 	public int iText;		// ammount of text instances
@@ -24,7 +25,7 @@ public class Quest : MonoBehaviour {
 	private bool willDie = false;
 	private bool displayingText = false;
 
-	private String[] displayText;
+	private string[] displayText;
 	private Color[] color;
 	private AudioClip[] playingSounds;
 	private int[] tempState;
@@ -34,6 +35,7 @@ public class Quest : MonoBehaviour {
 		UI = GameObject.Find("UI").gameObject;
 		textField = GameObject.Find("GM").gameObject.GetComponent<GM>().textField;
 		textMP = textField.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+		knuffel = GameObject.Find("Knuffel");
 
 		primaryAS = gameObject.AddComponent<AudioSource>();
 		primaryAS.clip = Resources.Load (name) as AudioClip;
@@ -72,14 +74,12 @@ public class Quest : MonoBehaviour {
 
 	public void questLine(){
 		specificQuests();
-		
 		if (!displayingText){
 			// progress in Quest Line
 			if (state < chapter.Length){
-				int nextState = state;
+				int previousState = state;
 				while (playerHasObject()){
-					Debug.Log("questline");
-					nextState ++;
+					state ++;
 					GM.gm.questState[gameObject.name] = state;
 
 					// add item
@@ -97,25 +97,21 @@ public class Quest : MonoBehaviour {
 				}
 
 				// show text and play sound
-				String[] disp = new String[nextState - state + 1];
-				AudioClip[] sound = new AudioClip[nextState - state + 1];
-				Color[] color = new Color[nextState - state + 1];
-				int[] tempState = new int[nextState - state + 1];
+				string[] disp = new string[state - previousState + 1];
+				AudioClip[] sound = new AudioClip[state - previousState + 1];
+				Color[] color = new Color[state - previousState + 1];
+				int[] tempState = new int[state - previousState + 1];
 					
 				for (int i = disp.Length - 1; i >= 0; i--){
-					Debug.Log("adding values");
-					disp[disp.Length - i - 1] = chapter[nextState - state - i].text[0];
-					if (chapter[nextState - state - i].sound.Length > 0){
-						sound[disp.Length - i - 1] = chapter[nextState - state - i].sound[0];
+					disp[disp.Length - i - 1] = chapter[state - previousState - i].text[0];
+					if (chapter[state - previousState - i].sound.Length > 0){
+						sound[disp.Length - i - 1] = chapter[state - previousState - i].sound[0];
 					}
-					color[disp.Length - i - 1] = chapter[nextState - state - i].sprechfarbe;
-					tempState[disp.Length - i - 1] = nextState - state - i;
+					color[disp.Length - i - 1] = chapter[state - previousState - i].sprechfarbe;
+					tempState[disp.Length - i - 1] = state - previousState - i;
 				}
 
-				foreach(int s in tempState){
-					Debug.Log(s);
-				}
-
+				state = previousState;
 				display(disp, sound, tempState, color);
 			}
 		}
@@ -125,7 +121,6 @@ public class Quest : MonoBehaviour {
 	}
 
 	private void specificQuests(){
-		Debug.Log("specific quest");
 		if (gameObject.name.Equals("Hippogreif") && state >= chapter.Length){
 			GameObject.Find("Auto").GetComponent<PolygonCollider2D>().enabled = true;
 		}
@@ -137,16 +132,24 @@ public class Quest : MonoBehaviour {
 			GM.gm.karteWege = true;
 		}
 
+		if (gameObject.name.Equals("Phoenix") && state >= chapter.Length){
+			GetComponent<PolygonCollider2D>().enabled = false;
+		}
+
 		if (gameObject.name.Equals("Kiste") && state >= 1){
 			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Kiste_offen");
 			gameObject.GetComponent<PolygonCollider2D>().enabled = false;
 		}
 
 		if (gameObject.name.Equals("Tutorial") && state == 0){
-			GameObject.Find("Canvas").SetActive(false);
+			try{
+				GameObject.Find("Canvas").SetActive(false);
+			}
+			catch{}
 		}
 
-		if (gameObject.name.Equals("Tutorial") && state >= chapter.Length){
+		if (gameObject.name.Equals("Tutorial") && state >= chapter.Length - 1){
+			knuffel.GetComponent<SpriteRenderer>().enabled = false;
 			ChangeScene.changeScene("forrest");
 			GetComponent<Quest>().enabled = false;
 		}
@@ -196,11 +199,11 @@ public class Quest : MonoBehaviour {
 		}
 	}
 
-	private void display(String[] questText, AudioClip[] sound, int[] tempState, Color[] color){
-		Debug.Log("display");
+	private void display(string[] questText, AudioClip[] sound, int[] tempState, Color[] color){
 		displayText = questText;
 		playingSounds = sound;
 		this.tempState = tempState;
+		this.color = color;
 
 		displayingText = true;
 		// instantiate Text once
@@ -212,12 +215,18 @@ public class Quest : MonoBehaviour {
 
 		// cycle through texts
 		if (iText < questText.Length && iText >= 0){
-			Debug.Log("iText: " + iText);
-			Debug.Log(state);
 			state = tempState[iText];
 
 			textMP.text = questText[iText];
 			textMP.color = color[iText];
+
+			// display Knuffel
+			if (textMP.color.CompareRGB(GM.gm.knuffelText)){
+				knuffel.GetComponent<SpriteRenderer>().enabled = true;
+			}
+			else{
+				knuffel.GetComponent<SpriteRenderer>().enabled = false;
+			}
 
 
 			try{
@@ -279,21 +288,13 @@ public class Quest : MonoBehaviour {
 	}
 }
 
-	[System.SerializableAttribute]
-	public class Chapter{
+[System.SerializableAttribute]
+public class Chapter{
 	[MultilineAttribute]
-	public String[] text;
-	public Color sprechfarbe = new Color();
+	public string[] text;
+	public Color sprechfarbe = new Color(141, 104, 36, 255);
 	public AudioClip[] sound;
-	public String needsItem;
+	public string needsItem;
 	public Sprite givesItem;
 	public bool vanishes;
-
-	Chapter(){
-		sprechfarbe.a = 255;
-		sprechfarbe.r = 141;
-		sprechfarbe.g = 104;
-		sprechfarbe.b = 36;
-		
-	}
 }
