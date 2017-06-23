@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,10 +8,14 @@ public class ChangeScene : MonoBehaviour {
 
 	public string nextScene;
 
-	AsyncOperation asyncLoadLevel;
 	public void changeScene()
 	{
 		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
+	}
+
+	public static void changeScene(String scene)
+	{
+		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 	}
 
 	public static void cleanScene(){

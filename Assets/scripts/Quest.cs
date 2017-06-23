@@ -25,7 +25,9 @@ public class Quest : MonoBehaviour {
 	private bool displayingText = false;
 
 	private String[] displayText;
+	private Color[] color;
 	private AudioClip[] playingSounds;
+	private int[] tempState;
 
 	// get Text prefab from GM
 	private void Start(){
@@ -69,68 +71,61 @@ public class Quest : MonoBehaviour {
 	}
 
 	public void questLine(){
+		specificQuests();
+		
 		if (!displayingText){
 			// progress in Quest Line
 			if (state < chapter.Length){
-				if (playerHasObject()){
-					state ++;
+				int nextState = state;
+				while (playerHasObject()){
+					Debug.Log("questline");
+					nextState ++;
 					GM.gm.questState[gameObject.name] = state;
 
-					// takes care of errors when chapter length is < 2
-					if (state < chapter.Length){
-						if (chapter[state].givesItem != null){
-							// add item
-							invCont.addItem(new Item(chapter[state].givesItem.name,chapter[state].givesItem));
-						}
-
-						if (chapter[state].vanishes){
-							willDie = true;
-						}
-
-						if (chapter[state - 1].sound.Length > 0){
-							if (chapter[state].sound.Length > 0){
-								display(new String[] {chapter[state - 1].text[0], chapter[state].text[0]}, new AudioClip[] {chapter[state - 1].sound[0], chapter[state].sound[0]});
-							}
-							else{
-								display(new String[] {chapter[state - 1].text[0], chapter[state].text[0]}, chapter[state - 1].sound);
-							}
-						}
-						else if(chapter[state].sound.Length > 0){
-							display(new String[] {chapter[state - 1].text[0], chapter[state].text[0]}, chapter[state].sound);
-						}
-						else {
-							display(new String[] {chapter[state - 1].text[0], chapter[state].text[0]}, new AudioClip[2]);
-						}
-					}
-					else{
-						if (chapter[state - 1].givesItem != null){
-							// add item
-							invCont.addItem(new Item(chapter[state - 1].givesItem.name,chapter[state - 1].givesItem));
-						}
-
-						if (chapter[state - 1].vanishes){
-							willDie = true;
-						}
-
-						display(chapter[state - 1].text, chapter[state - 1].sound);
+					// add item
+					if (chapter[state].givesItem != null){
+						invCont.addItem(new Item(chapter[state].givesItem.name, chapter[state].givesItem));
 					}
 
+					if (state == 1 && chapter[0].givesItem != null){
+						invCont.addItem(new Item(chapter[0].givesItem.name, chapter[0].givesItem));
+					}
 
+					if (chapter[state].vanishes){
+						willDie = true;
+					}
+				}
 
+				// show text and play sound
+				String[] disp = new String[nextState - state + 1];
+				AudioClip[] sound = new AudioClip[nextState - state + 1];
+				Color[] color = new Color[nextState - state + 1];
+				int[] tempState = new int[nextState - state + 1];
 					
-					
+				for (int i = disp.Length - 1; i >= 0; i--){
+					Debug.Log("adding values");
+					disp[disp.Length - i - 1] = chapter[nextState - state - i].text[0];
+					if (chapter[nextState - state - i].sound.Length > 0){
+						sound[disp.Length - i - 1] = chapter[nextState - state - i].sound[0];
+					}
+					color[disp.Length - i - 1] = chapter[nextState - state - i].sprechfarbe;
+					tempState[disp.Length - i - 1] = nextState - state - i;
 				}
-				else {
-					display(chapter[state].text, chapter[state].sound);
+
+				foreach(int s in tempState){
+					Debug.Log(s);
 				}
+
+				display(disp, sound, tempState, color);
 			}
 		}
 		else {
-			display(displayText, playingSounds);
+			display(displayText, playingSounds, this.tempState, this.color);
 		}
 	}
 
 	private void specificQuests(){
+		Debug.Log("specific quest");
 		if (gameObject.name.Equals("Hippogreif") && state >= chapter.Length){
 			GameObject.Find("Auto").GetComponent<PolygonCollider2D>().enabled = true;
 		}
@@ -140,6 +135,20 @@ public class Quest : MonoBehaviour {
 
 		if (gameObject.name.Equals("Origamivogel") && state >= chapter.Length){
 			GM.gm.karteWege = true;
+		}
+
+		if (gameObject.name.Equals("Kiste") && state >= 1){
+			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Kiste_offen");
+			gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+		}
+
+		if (gameObject.name.Equals("Tutorial") && state == 0){
+			GameObject.Find("Canvas").SetActive(false);
+		}
+
+		if (gameObject.name.Equals("Tutorial") && state >= chapter.Length){
+			ChangeScene.changeScene("forrest");
+			GetComponent<Quest>().enabled = false;
 		}
 
 		if (gameObject.name.Equals("karteMitte") && state >= chapter.Length){
@@ -164,27 +173,34 @@ public class Quest : MonoBehaviour {
 	}
 
 	private bool playerHasObject(){
-		if (chapter[state].needsItem != ""){
-			// look through inventory
-			foreach(Transform t in invCont.transform){
-				if (t.childCount > 0){
-					if (t.GetChild(0).gameObject.name.Equals(chapter[state].needsItem)){
-						// remove quest item from inventory
-						Destroy(t.GetChild(0).gameObject);
-						return true;
+		if (state < chapter.Length - 1){
+			if (chapter[state].needsItem != ""){
+				// look through inventory
+				foreach(Transform t in invCont.transform){
+					if (t.childCount > 0){
+						if (t.GetChild(0).gameObject.name.Equals(chapter[state].needsItem)){
+							// remove quest item from inventory
+							Destroy(t.GetChild(0).gameObject);
+							return true;
+						}
 					}
 				}
 			}
+			else{
+				return true;
+			}
+			return false;
 		}
 		else{
-			return true;
+			return false;
 		}
-		return false;
 	}
 
-	private void display(String[] questText, AudioClip[] sound){
+	private void display(String[] questText, AudioClip[] sound, int[] tempState, Color[] color){
+		Debug.Log("display");
 		displayText = questText;
 		playingSounds = sound;
+		this.tempState = tempState;
 
 		displayingText = true;
 		// instantiate Text once
@@ -196,7 +212,14 @@ public class Quest : MonoBehaviour {
 
 		// cycle through texts
 		if (iText < questText.Length && iText >= 0){
+			Debug.Log("iText: " + iText);
+			Debug.Log(state);
+			state = tempState[iText];
+
 			textMP.text = questText[iText];
+			textMP.color = color[iText];
+
+
 			try{
 				if (iText % 2 == 0) {
 					secondaryAS.PlayOneShot (sound [iText], GM.gm.effect_volume);
@@ -260,8 +283,17 @@ public class Quest : MonoBehaviour {
 	public class Chapter{
 	[MultilineAttribute]
 	public String[] text;
+	public Color sprechfarbe = new Color();
 	public AudioClip[] sound;
 	public String needsItem;
 	public Sprite givesItem;
 	public bool vanishes;
+
+	Chapter(){
+		sprechfarbe.a = 255;
+		sprechfarbe.r = 141;
+		sprechfarbe.g = 104;
+		sprechfarbe.b = 36;
+		
+	}
 }

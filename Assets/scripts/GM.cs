@@ -107,4 +107,7 @@ public class GM : MonoBehaviour {
 	public TextAsset combinations;
 
 	public Dictionary<String, bool> objectInInventory = new Dictionary<string, bool>();
+
+	public Color knuffelText;
+	public Color playerText;
 }
