@@ -8,16 +8,14 @@ public class onClick : MonoBehaviour {
 	private Texture2D cursorInactive;
 
 	public enum State {idle, hit, interact, quest, changeScene, stop};
-	//[HideInInspector]
 	public State state = State.idle;
 
-	private void Start()
-	{
+	private void Start(){
 		cursorActive = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorActive;
 		cursorInactive = GameObject.Find("GM").gameObject.GetComponent<GM>().cursorInactive;
 	}
 
-	void Update () {
+	private void Update () {
 		{
 			switch (state){
 				case (State.idle):

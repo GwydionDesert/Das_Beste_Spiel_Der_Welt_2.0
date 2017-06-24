@@ -19,11 +19,11 @@ public class InventoryController : MonoBehaviour {
 
 	public GameObject text;
 
-	private String[,] combo;
+	private string[,] combo;
 	private int comboPos;
 
 	public Vector3 offset = new Vector3(0,1,0);
-	private float textScale = 35;
+	private float textScale = 80;
 
 	void Awake () {
 		// create Inventory
@@ -174,7 +174,7 @@ public class InventoryController : MonoBehaviour {
 		}
 	}
 
-		public void OnDrawGizmosSelected(){
+	public void OnDrawGizmosSelected(){
 		Gizmos.color = Color.red;
 		Gizmos.DrawCube(new Vector3 (transform.position.x + offset.x, transform.position.y + offset.y, transform.position.z), new Vector3(0.2f, 1, 1));
 	}

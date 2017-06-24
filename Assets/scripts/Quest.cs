@@ -21,7 +21,7 @@ public class Quest : MonoBehaviour {
 	private AudioSource secondaryAS;
 	private InventoryController invCont;
 
-	public int state = 0;
+	public int state;
 	private bool willDie = false;
 	private bool displayingText = false;
 
@@ -57,7 +57,7 @@ public class Quest : MonoBehaviour {
 			state = GM.gm.questState[gameObject.name];
 		}
 		else{
-			GM.gm.questState.Add(gameObject.name, state);
+			GM.gm.questState.Add(gameObject.name, 0);
 		}
 
 		if (state > chapter.Length){
@@ -73,6 +73,7 @@ public class Quest : MonoBehaviour {
 	}
 
 	public void questLine(){
+		
 		specificQuests();
 		if (!displayingText){
 			// progress in Quest Line
@@ -81,38 +82,56 @@ public class Quest : MonoBehaviour {
 				while (playerHasObject()){
 					state ++;
 					GM.gm.questState[gameObject.name] = state;
-
 					// add item
-					if (chapter[state].givesItem != null){
-						invCont.addItem(new Item(chapter[state].givesItem.name, chapter[state].givesItem));
-					}
+					if (chapter.Length > 1){
+						if (chapter[state].givesItem != null){
+							invCont.addItem(new Item(chapter[state].givesItem.name, chapter[state].givesItem));
+						}
 
-					if (state == 1 && chapter[0].givesItem != null){
-						invCont.addItem(new Item(chapter[0].givesItem.name, chapter[0].givesItem));
+						if (chapter[state].vanishes){
+							willDie = true;
+						}
 					}
+					else {
+						if (chapter[0].givesItem != null){
+							invCont.addItem(new Item(chapter[0].givesItem.name, chapter[0].givesItem));
+						}
 
-					if (chapter[state].vanishes){
-						willDie = true;
+						if (chapter[0].vanishes){
+							willDie = true;
+						}
 					}
 				}
 
-				// show text and play sound
-				string[] disp = new string[state - previousState + 1];
-				AudioClip[] sound = new AudioClip[state - previousState + 1];
-				Color[] color = new Color[state - previousState + 1];
-				int[] tempState = new int[state - previousState + 1];
+				// show Text
+				if (chapter.Length > 1){
+					// show text and play sound
+					string[] disp = new string[state - previousState + 1];
+					AudioClip[] sound = new AudioClip[state - previousState + 1];
+					Color[] color = new Color[state - previousState + 1];
+					int[] tempState = new int[state - previousState + 1];
+						
+					for (int i = disp.Length - 1; i >= 0; i--){
+						disp[disp.Length - i - 1] = chapter[state - i].text[0];
+						if (chapter[state - i].sound.Length > 0){
+							sound[disp.Length - i - 1] = chapter[state - i].sound[0];
+						}
+						color[disp.Length - i - 1] = chapter[state - i].sprechfarbe;
+						tempState[disp.Length - i - 1] = state - i;
+					}
+
+					state = previousState;
+					display(disp, sound, tempState, color);
+				}
+				else {
+					if (chapter[0].sound.Length > 0){
+						display(chapter[0].text, chapter[0].sound, new int[] {1}, new Color[] {chapter[0].sprechfarbe});
+					}
+					else{
+						display(chapter[0].text, new AudioClip[1], new int[] {1}, new Color[] {chapter[0].sprechfarbe});
+					}
 					
-				for (int i = disp.Length - 1; i >= 0; i--){
-					disp[disp.Length - i - 1] = chapter[state - previousState - i].text[0];
-					if (chapter[state - previousState - i].sound.Length > 0){
-						sound[disp.Length - i - 1] = chapter[state - previousState - i].sound[0];
-					}
-					color[disp.Length - i - 1] = chapter[state - previousState - i].sprechfarbe;
-					tempState[disp.Length - i - 1] = state - previousState - i;
 				}
-
-				state = previousState;
-				display(disp, sound, tempState, color);
 			}
 		}
 		else {
@@ -132,7 +151,7 @@ public class Quest : MonoBehaviour {
 			GM.gm.karteWege = true;
 		}
 
-		if (gameObject.name.Equals("Phoenix") && state >= chapter.Length){
+		if (gameObject.name.Equals("Phoenix") && state >= chapter.Length - 1){
 			GetComponent<PolygonCollider2D>().enabled = false;
 		}
 
@@ -141,6 +160,7 @@ public class Quest : MonoBehaviour {
 			gameObject.GetComponent<PolygonCollider2D>().enabled = false;
 		}
 
+		//	Tutorial
 		if (gameObject.name.Equals("Tutorial") && state == 0){
 			try{
 				GameObject.Find("Canvas").SetActive(false);
@@ -154,6 +174,7 @@ public class Quest : MonoBehaviour {
 			GetComponent<Quest>().enabled = false;
 		}
 
+		//	Karten Quest
 		if (gameObject.name.Equals("karteMitte") && state >= chapter.Length){
 			GM.gm.karteMitte = true;
 		}
@@ -172,6 +193,32 @@ public class Quest : MonoBehaviour {
 					t.gameObject.SetActive(true);
 				}
 			}
+			GameObject.Find("changeSceneForrest").SetActive(false);
+		}
+
+		//	Auto Quest
+		if (gameObject.name.Equals("Auto")){
+			switch ((int) state){
+				case 1: case 2:
+					gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Auto_auf");
+					break;
+				case 3:
+					gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Auto_auf_batterie+kont");
+					break;
+				case 4: case 5:
+					gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Auto_zu_reifen");
+					break;
+				case 6: case 7:
+					gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Auto_tür_auf");
+					break;
+				case 8:
+					Cursor.visible = false;
+					Camera.main.GetComponent<onClick>().lastHit = gameObject;
+					Camera.main.GetComponent<onClick>().state = onClick.State.idle;
+
+					ChangeScene.changeScene("AutoSieg");
+					break;
+			}
 		}
 	}
 
@@ -182,6 +229,24 @@ public class Quest : MonoBehaviour {
 				foreach(Transform t in invCont.transform){
 					if (t.childCount > 0){
 						if (t.GetChild(0).gameObject.name.Equals(chapter[state].needsItem)){
+							// remove quest item from inventory
+							Destroy(t.GetChild(0).gameObject);
+							return true;
+						}
+					}
+				}
+			}
+			else{
+				return true;
+			}
+			return false;
+		}
+		else if(chapter.Length == 1 && !willDie){
+			if (chapter[0].needsItem != ""){
+				// look through inventory
+				foreach(Transform t in invCont.transform){
+					if (t.childCount > 0){
+						if (t.GetChild(0).gameObject.name.Equals(chapter[0].needsItem)){
 							// remove quest item from inventory
 							Destroy(t.GetChild(0).gameObject);
 							return true;
@@ -206,6 +271,8 @@ public class Quest : MonoBehaviour {
 		this.color = color;
 
 		displayingText = true;
+		Debug.Log(GM.gm.questState[gameObject.name]);
+
 		// instantiate Text once
 		invCont.setItemColliders(false);
 		if (iText == 0){
@@ -264,6 +331,7 @@ public class Quest : MonoBehaviour {
 
 	public void stop(){
 		displayingText = false;
+		knuffel.GetComponent<SpriteRenderer>().enabled = false;
 
 		if (iText % 2 == 0){
 			StartCoroutine (FadeOut (primaryAS, 0.0f));

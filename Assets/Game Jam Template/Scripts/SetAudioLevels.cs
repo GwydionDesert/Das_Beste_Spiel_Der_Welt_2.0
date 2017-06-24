@@ -16,7 +16,12 @@ public class SetAudioLevels : MonoBehaviour {
 	//Call this function and pass in the float parameter musicLvl to set the volume of the AudioMixerGroup Music in mainMixer
 	public void SetMusicLevel(float musicLvl)
 	{
-		mainMixer.SetFloat("musicVol", musicLvl);
+		if (musicLvl <= -25){
+			mainMixer.SetFloat("musicVol", -80);
+		}
+		else{
+			mainMixer.SetFloat("musicVol", musicLvl);
+		}
         GM.gm.music_volume = musicLvl;
         vol_slider_menu.GetComponent<UnityEngine.UI.Slider>().value = GM.gm.music_volume;
         vol_slider_pause.GetComponent<UnityEngine.UI.Slider>().value = GM.gm.music_volume;

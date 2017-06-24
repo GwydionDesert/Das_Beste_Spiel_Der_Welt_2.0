@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GM : MonoBehaviour {
-
-
 	public static GM gm;
 
-	private void Awake()
-	{
+	private void Awake(){
 		keepObject();
 		readTable(objects, description);
 		combo = new String[4, getLength(combinations)];
@@ -18,8 +15,7 @@ public class GM : MonoBehaviour {
 	}
 
 	// check if more than one GM is active per scene
-	private void keepObject()
-	{
+	private void keepObject(){
 		if (gm == null)
 		{
 			DontDestroyOnLoad(gameObject);
@@ -34,8 +30,7 @@ public class GM : MonoBehaviour {
 		}
 	}
 
-	private void readTable(TextAsset t, Dictionary<string, string[]> d)
-	{
+	private void readTable(TextAsset t, Dictionary<string, string[]> d){
 		// Split text by rows
 		String[] s = t.text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 		for (int i = 0; i < s.Length; i++)
@@ -54,8 +49,7 @@ public class GM : MonoBehaviour {
 		}
 	}
 	
-	private String[,] readTable(TextAsset t)
-	{
+	private string[,] readTable(TextAsset t){
 		// Split text by rows
 		String[] s = t.text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -101,13 +95,13 @@ public class GM : MonoBehaviour {
 	// object description
 	[HideInInspector]
 	public Dictionary<string, string[]> description = new Dictionary<string, string[]>();
-	public String[,] combo = new String[4, 0];
+	public string[,] combo = new string[4, 0];
 	public Dictionary<string, int> questState = new Dictionary<string, int>();
 	public TextAsset objects;
 	public TextAsset combinations;
 
-	public Dictionary<String, bool> objectInInventory = new Dictionary<string, bool>();
+	public Dictionary<string, bool> objectInInventory = new Dictionary<string, bool>();
 
 	public Color knuffelText;
-	public Color playerText;
+	public Color spielerText;
 }

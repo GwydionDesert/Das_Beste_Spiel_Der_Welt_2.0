@@ -11,7 +11,7 @@ public class DisplayText : MonoBehaviour {
 	// display text
 	private GameObject textField;
 	private TextMeshProUGUI textMP;
-
+	
 	[HideInInspector]
 	public int iText;		// ammount of text instances
 	private GameObject UI;
@@ -67,6 +67,7 @@ public class DisplayText : MonoBehaviour {
 		// cycle through texts
 		if (iText < descriptionText.Length && iText >= 0){
 			textMP.text = descriptionText [iText];
+			textMP.color = GM.gm.spielerText;
 
 			if (sound.Length != 0){
 				if (iText % 2 == 0) {

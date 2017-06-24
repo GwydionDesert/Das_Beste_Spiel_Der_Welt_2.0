@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +12,7 @@ public class ChangeScene : MonoBehaviour {
 		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
 	}
 
-	public static void changeScene(String scene)
+	public static void changeScene(string scene)
 	{
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 	}
@@ -26,6 +25,14 @@ public class ChangeScene : MonoBehaviour {
 				if (GameObject.Find(key) != null){
 					Destroy(GameObject.Find(key).gameObject);
 				}
+			}
+		}
+
+		if (GameObject.Find("Kiste")!= null){
+			if (GameObject.Find("Kiste").GetComponent<Quest>().state >= 1){
+				GameObject.Find("Kiste").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Kiste_offen");
+				Destroy(GameObject.Find("Kiste").GetComponent<Quest>());
+				Destroy(GameObject.Find("Kiste").GetComponent<PolygonCollider2D>());
 			}
 		}
 	}
