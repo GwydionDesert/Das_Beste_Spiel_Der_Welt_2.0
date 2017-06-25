@@ -69,6 +69,9 @@ public class Quest : MonoBehaviour {
 					specificQuests();
 					Destroy(gameObject);
 				}
+				else{
+					specificQuests();
+				}
 		}
 	}
 
@@ -199,23 +202,27 @@ public class Quest : MonoBehaviour {
 		//	Auto Quest
 		if (gameObject.name.Equals("Auto")){
 			switch ((int) state){
-				case 1: case 2:
+				case 3: case 4:
 					gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Auto_auf");
 					break;
-				case 3:
+				case 5: case 6: case 7: case 8:
 					gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Auto_auf_batterie+kont");
 					break;
-				case 4: case 5:
+				case 9: case 10:
 					gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Auto_zu_reifen");
 					break;
-				case 6: case 7:
+				case 11: case 12: case 13: case 14:
 					gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Icons/Auto_tür_auf");
 					break;
-				case 8:
-					Cursor.visible = false;
+				case 15:
+					Cursor.visible = true;
 					Camera.main.GetComponent<onClick>().lastHit = gameObject;
 					Camera.main.GetComponent<onClick>().state = onClick.State.idle;
-
+					foreach(Transform t in GameObject.Find("UI").transform){
+						if (t.gameObject.name.Equals("SiegAuto")){
+							t.gameObject.SetActive(true);
+						}
+					}
 					ChangeScene.changeScene("AutoSieg");
 					break;
 			}
@@ -271,7 +278,6 @@ public class Quest : MonoBehaviour {
 		this.color = color;
 
 		displayingText = true;
-		Debug.Log(GM.gm.questState[gameObject.name]);
 
 		// instantiate Text once
 		invCont.setItemColliders(false);
